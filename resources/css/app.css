@@ -86,6 +86,19 @@
     --radius-surface: 12px;
     --radius-modal: 14px;
     --radius-badge: 6px;
+
+    /* Couleurs Officielles CIOMAG (extraites du Logo et de la Charte) */
+    --color-ciomag-pine: #114b3a;
+    --color-ciomag-teal: #1a5c48;
+    --color-ciomag-teal-light: #25785f;
+    --color-ciomag-teal-pale: #eaf3f0;
+    --color-ciomag-slate: #506361;
+    --color-ciomag-slate-dark: #242f2e;
+    --color-ciomag-slate-light: #7c9190;
+    --color-ciomag-amber: #e89e35;
+    --color-ciomag-amber-hover: #d38b24;
+    --color-ciomag-amber-light: #fef7ec;
+    --color-ciomag-crimson: #5a0f1d;
 }
 
 /* ======================================================== */

@@ -614,6 +614,8 @@ class MagazineCmsTest extends TestCase
         $response->assertSee('createItemModalOpen', false);
         $response->assertSee('Ajouter un élément au menu', false);
         $response->assertSee('Arborescence Résolue (menu_tree)', false);
+        $response->assertSee('confirmDeleteItem', false);
+        $response->assertSee('window.confirmAction', false);
     }
 
     public function test_admin_can_update_menu_and_menu_item(): void
@@ -706,5 +708,51 @@ class MagazineCmsTest extends TestCase
         $unparentRes->assertStatus(200);
         $unparentRes->assertJson(['success' => true]);
         $this->assertNull($itemB->fresh()->parent_id);
+    }
+
+    public function test_admin_can_update_logo_and_favicon_settings(): void
+    {
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $admin = User::factory()->create([
+            'role_id' => $adminRole->id,
+            'status' => 'active',
+        ]);
+
+        // 1. Accès à la page de configuration : présence des champs logo et favicon
+        $settingsPage = $this->actingAs($admin)->get(route('admin.settings.index'));
+        $settingsPage->assertStatus(200);
+        $settingsPage->assertSee('name="logo_url"', false);
+        $settingsPage->assertSee('name="favicon_url"', false);
+        $settingsPage->assertSee('Identité Visuelle & Marque (Logo & Favicon)', false);
+
+        // 2. Mise à jour des paramètres avec un logo et un favicon personnalisés
+        $logoUrl = 'https://ciomag.com/storage/media/ciomag-official-logo.png';
+        $faviconUrl = 'https://ciomag.com/storage/media/ciomag-favicon.png';
+
+        $updateRes = $this->actingAs($admin)->put(route('admin.settings.update'), [
+            'site_name' => 'CIOMAG International',
+            'tagline' => 'Leader de l\'information technologique en Afrique',
+            'edition' => 'Édition 2026',
+            'contact_email' => 'contact@ciomag.com',
+            'footer_about' => 'À propos de CIOMAG',
+            'logo_url' => $logoUrl,
+            'favicon_url' => $faviconUrl,
+            'default_meta_title' => 'CIOMAG Meta Title',
+            'default_meta_description' => 'CIOMAG Meta Description',
+        ]);
+
+        $updateRes->assertRedirect();
+        $updateRes->assertSessionHas('success');
+
+        // Vérification de la persistance en base et en cache
+        $saved = Setting::getValue('site_general');
+        $this->assertEquals($logoUrl, $saved['logo_url']);
+        $this->assertEquals($faviconUrl, $saved['favicon_url']);
+
+        // 3. Rendu sur le site public : logo et favicon sont injectés dans le HTML
+        $home = $this->get(route('magazine.home'));
+        $home->assertStatus(200);
+        $home->assertSee($logoUrl, false);
+        $home->assertSee($faviconUrl, false);
     }
 }

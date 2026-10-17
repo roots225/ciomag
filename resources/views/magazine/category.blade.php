@@ -7,8 +7,8 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
     <!-- En-tête de la Catégorie -->
-    <div class="bg-slate-900 text-white rounded-2xl p-8 sm:p-10 mb-10">
-        <div class="flex items-center gap-2 text-xs text-amber-400 font-bold uppercase tracking-wider mb-2">
+    <div class="bg-[#182322] border border-ciomag-teal/30 text-white rounded-2xl p-8 sm:p-10 mb-10 shadow-sm">
+        <div class="flex items-center gap-2 text-xs text-ciomag-amber font-bold uppercase tracking-wider mb-2">
             <a href="{{ route('magazine.home') }}" class="hover:underline">Accueil</a>
             <span>/</span>
             @if($category->parent)
@@ -24,10 +24,10 @@
         @endif
 
         @if($category->children->isNotEmpty())
-            <div class="mt-6 pt-5 border-t border-slate-800 flex flex-wrap items-center gap-2">
+            <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center gap-2">
                 <span class="text-xs text-slate-400 font-semibold mr-2">Sous-rubriques :</span>
                 @foreach($category->children as $sub)
-                    <a href="{{ route('magazine.category', $sub->slug) }}" class="px-3 py-1 text-xs font-semibold bg-slate-800 hover:bg-red-700 text-white rounded-full transition">
+                    <a href="{{ route('magazine.category', $sub->slug) }}" class="px-3 py-1 text-xs font-semibold bg-[#242f2e] hover:bg-ciomag-teal text-white rounded-full transition">
                         {{ $sub->name }}
                     </a>
                 @endforeach
@@ -52,11 +52,11 @@
                         @endif
                         <div class="p-6">
                             <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
-                                <span class="font-bold text-red-700 uppercase">{{ $post->primaryCategory()?->name ?? $category->name }}</span>
+                                <span class="font-extrabold text-ciomag-teal uppercase">{{ $post->primaryCategory()?->name ?? $category->name }}</span>
                                 <span>•</span>
                                 <span>{{ $post->reading_time_minutes }} min</span>
                             </div>
-                            <h2 class="text-lg font-bold text-slate-900 hover:text-red-700 leading-snug">
+                            <h2 class="text-lg font-bold text-slate-900 hover:text-ciomag-teal leading-snug">
                                 <a href="{{ route('magazine.post', $post->slug) }}">{{ $post->title }}</a>
                             </h2>
                             @if($post->excerpt)
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                        <a href="{{ route('magazine.author', $post->author->username) }}" class="font-semibold text-slate-800 hover:text-red-700">
+                        <a href="{{ route('magazine.author', $post->author->username) }}" class="font-semibold text-slate-800 hover:text-ciomag-teal">
                             {{ $post->author->display_name }}
                         </a>
                         <span>{{ $post->published_at?->translatedFormat('d M Y') }}</span>

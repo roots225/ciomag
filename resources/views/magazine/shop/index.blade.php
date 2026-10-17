@@ -6,10 +6,10 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
 
     <!-- Bannière Hero Boutique -->
-    <div class="bg-slate-950 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-slate-800">
+    <div class="bg-[#182322] text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-ciomag-teal/30 shadow-sm">
         <div class="relative z-10 max-w-3xl space-y-4">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-700 text-white text-xs font-extrabold uppercase tracking-wider">
-                <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ciomag-teal text-white text-xs font-extrabold uppercase tracking-wider">
+                <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-ciomag-amber"></i>
                 <span>Kiosque & Librairie Exécutive CIOMAG</span>
             </span>
             <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
@@ -28,15 +28,15 @@
                 <i data-lucide="grid" class="w-3.5 h-3.5"></i>
                 <span>Tout le catalogue</span>
             </a>
-            <a href="{{ route('magazine.shop.index', ['type' => 'magazine']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'magazine' ? 'bg-red-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
+            <a href="{{ route('magazine.shop.index', ['type' => 'magazine']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'magazine' ? 'bg-ciomag-teal text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
                 <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
                 <span>Magazines</span>
             </a>
-            <a href="{{ route('magazine.shop.index', ['type' => 'book']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'book' ? 'bg-red-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
+            <a href="{{ route('magazine.shop.index', ['type' => 'book']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'book' ? 'bg-ciomag-teal text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
                 <i data-lucide="library" class="w-3.5 h-3.5"></i>
                 <span>Livres & Guides</span>
             </a>
-            <a href="{{ route('magazine.shop.index', ['type' => 'report']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'report' ? 'bg-red-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
+            <a href="{{ route('magazine.shop.index', ['type' => 'report']) }}" class="px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 transition {{ $type === 'report' ? 'bg-ciomag-teal text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700' }}">
                 <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
                 <span>Études & Livres Blancs</span>
             </a>
@@ -48,9 +48,9 @@
             @endif
             <div class="relative">
                 <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                <input type="search" name="q" value="{{ $search }}" placeholder="Numéro, titre, sujet..." class="pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                <input type="search" name="q" value="{{ $search }}" placeholder="Numéro, titre, sujet..." class="pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal">
             </div>
-            <button type="submit" class="px-3.5 py-2 bg-slate-900 hover:bg-red-700 text-white text-xs font-bold rounded-xl cursor-pointer">
+            <button type="submit" class="px-3.5 py-2 bg-slate-900 hover:bg-ciomag-teal text-white text-xs font-bold rounded-xl cursor-pointer transition">
                 Filtrer
             </button>
         </form>
@@ -70,7 +70,7 @@
                                 {{ $product->typeLabel() }}
                             </span>
                             @if($product->issue_number)
-                                <span class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-red-700 text-white rounded-md">
+                                <span class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-ciomag-pine text-white rounded-md">
                                     {{ $product->issue_number }}
                                 </span>
                             @endif
@@ -84,7 +84,7 @@
                     </a>
 
                     <div class="p-6 space-y-3">
-                        <h2 class="text-lg font-extrabold text-slate-900 group-hover:text-red-700 transition leading-snug">
+                        <h2 class="text-lg font-extrabold text-slate-900 group-hover:text-ciomag-teal transition leading-snug">
                             <a href="{{ route('magazine.shop.show', $product->slug) }}">{{ $product->title }}</a>
                         </h2>
                         @if($product->subtitle)
@@ -104,7 +104,7 @@
                         @endif
                     </div>
 
-                    <a href="{{ route('magazine.shop.show', $product->slug) }}" class="px-4 py-2 bg-red-700 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl inline-flex items-center gap-1.5 transition">
+                    <a href="{{ route('magazine.shop.show', $product->slug) }}" class="px-4 py-2 bg-ciomag-teal hover:bg-ciomag-pine text-white text-xs font-bold uppercase tracking-wider rounded-xl inline-flex items-center gap-1.5 transition">
                         <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
                         <span>Commander</span>
                     </a>

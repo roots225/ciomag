@@ -8,7 +8,7 @@
 
     @if($page->parent)
         <div class="mb-4 text-xs text-slate-500">
-            <a href="{{ route('magazine.page', $page->parent->slug) }}" class="text-red-700 font-semibold hover:underline inline-flex items-center gap-1">
+            <a href="{{ route('magazine.page', $page->parent->slug) }}" class="text-ciomag-teal font-semibold hover:underline inline-flex items-center gap-1">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
                 {{ $page->parent->title }}
             </a>
@@ -31,7 +31,7 @@
                 <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Pages associées</h2>
                 <div class="flex flex-wrap gap-3">
                     @foreach($page->children as $child)
-                        <a href="{{ route('magazine.page', $child->slug) }}" class="px-4 py-2 bg-slate-100 hover:bg-red-700 hover:text-white text-sm font-semibold rounded-lg transition inline-flex items-center gap-1.5">
+                        <a href="{{ route('magazine.page', $child->slug) }}" class="px-4 py-2 bg-slate-100 hover:bg-ciomag-teal hover:text-white text-sm font-semibold rounded-lg transition inline-flex items-center gap-1.5">
                             {{ $child->title }}
                             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                         </a>

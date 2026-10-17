@@ -103,25 +103,29 @@
                 x-transition:leave="transition ease-in duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                 x-transition:leave-end="opacity-0 translate-y-1 scale-95"
-                class="pointer-events-auto p-4 rounded-2xl shadow-xl border flex items-start gap-3 backdrop-blur-md transition"
-                :class="t.type === 'success' ? 'bg-emerald-950/95 text-white border-emerald-500/60' : 'bg-rose-950/95 text-white border-rose-500/60'"
+                class="pointer-events-auto p-4 rounded-xl shadow-xl border flex items-start gap-3 bg-white/95 backdrop-blur-md transition"
+                :class="t.type === 'success' ? 'border-emerald-200 text-slate-900 shadow-emerald-500/5' : 'border-rose-200 text-slate-900 shadow-rose-500/5'"
             >
                 <div class="shrink-0 mt-0.5">
                     <template x-if="t.type === 'success'">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+                        <div class="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        </div>
                     </template>
                     <template x-if="t.type === 'error'">
-                        <i data-lucide="alert-circle" class="w-5 h-5 text-rose-400"></i>
+                        <div class="w-6 h-6 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center">
+                            <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                        </div>
                     </template>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h4 class="text-xs font-bold leading-tight" x-text="t.title"></h4>
-                    <p class="text-xs text-slate-200 mt-0.5 leading-snug" x-text="t.message"></p>
+                    <h4 class="text-xs font-bold leading-tight text-slate-900" x-text="t.title"></h4>
+                    <p class="text-xs text-slate-500 mt-0.5 leading-snug" x-text="t.message"></p>
                 </div>
                 <button
                     type="button"
                     @click="removeToast(t.id)"
-                    class="text-slate-400 hover:text-white p-1 rounded-lg transition cursor-pointer shrink-0"
+                    class="text-slate-400 hover:text-slate-600 p-1 rounded-lg transition cursor-pointer shrink-0"
                 >
                     <i data-lucide="x" class="w-3.5 h-3.5"></i>
                 </button>
@@ -171,25 +175,27 @@
     @if($activeMenu)
         <!-- Aperçu CTE Récursive & Arborescence Interactive Glisser-Déposer -->
         <div class="space-y-6">
-            <div class="admin-card p-5 sm:p-6 bg-slate-900 text-white border-slate-800 shadow-md">
-                <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 mb-4 gap-3">
+            <div class="admin-card p-5 sm:p-6 bg-white border border-slate-200/80 shadow-xs">
+                <div class="flex flex-wrap items-center justify-between border-b border-slate-100 pb-4 mb-4 gap-3">
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
-                            <i data-lucide="git-branch" class="w-4 h-4"></i>
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-md bg-red-50 text-red-700 flex items-center justify-center">
+                                <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+                            </span>
                             <span>Arborescence Résolue (menu_tree) : {{ $activeMenu->name }}</span>
                         </h2>
-                        <p class="text-[11px] text-slate-400 mt-0.5">
+                        <p class="text-[11px] text-slate-500 mt-1">
                             Glissez-déposez un élément sur un autre pour changer son parent, ou sur la zone supérieure pour le replacer à la racine.
                         </p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="px-2.5 py-1 text-xs font-mono bg-slate-800 text-emerald-400 rounded-lg border border-slate-700">
+                        <span class="px-2.5 py-1 text-xs font-mono font-medium bg-slate-50 text-slate-700 rounded-lg border border-slate-200">
                             <span x-text="treeNodes.length"></span> <span x-text="treeNodes.length > 1 ? 'nœuds' : 'nœud'"></span>
                         </span>
                         <button
                             type="button"
                             @click="createItemModalOpen = true"
-                            class="px-3 py-1.5 bg-red-700 hover:bg-red-600 text-white text-xs font-semibold rounded-lg transition inline-flex items-center gap-1.5 cursor-pointer"
+                            class="btn btn-sm btn-primary inline-flex items-center gap-1.5 cursor-pointer"
                         >
                             <i data-lucide="plus" class="w-3.5 h-3.5"></i>
                             <span>Ajouter</span>
@@ -206,18 +212,20 @@
                     @dragover.prevent="dragOverRoot = true"
                     @dragleave="dragOverRoot = false"
                     @drop.prevent="dropOnRoot($event)"
-                    class="mb-3 p-4 rounded-xl border-2 border-dashed transition text-center cursor-pointer flex items-center justify-center gap-2.5"
-                    :class="dragOverRoot ? 'border-emerald-400 bg-emerald-500/20 text-emerald-300 ring-2 ring-emerald-400/50 scale-[1.01]' : 'border-slate-600 bg-slate-800/80 text-slate-300 hover:border-slate-400'"
+                    class="mb-3.5 p-3.5 rounded-xl border-2 border-dashed transition text-center cursor-pointer flex items-center justify-center gap-2.5"
+                    :class="dragOverRoot ? 'border-emerald-500 bg-emerald-50 text-emerald-800 ring-2 ring-emerald-200 scale-[1.01]' : 'border-slate-300 bg-slate-50/80 text-slate-600 hover:border-slate-400 hover:bg-slate-100/70'"
                 >
-                    <i data-lucide="corner-left-up" class="w-5 h-5 text-emerald-400"></i>
-                    <span class="text-xs font-bold font-sans">
-                        Déposer ici pour supprimer le parent de « <span x-text="draggedNode ? draggedNode.label : ''"></span> » (Replacer au Niveau 0 Racine)
+                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                        <i data-lucide="corner-left-up" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-xs font-medium font-sans">
+                        Déposer ici pour supprimer le parent de « <strong class="font-bold text-slate-900" x-text="draggedNode ? draggedNode.label : ''"></strong> » (Replacer au Niveau 0 Racine)
                     </span>
                 </div>
 
                 <!-- LISTE DES ÉLÉMENTS DE MENU ARBORESCENTE -->
                 <template x-if="treeNodes.length > 0">
-                    <div class="space-y-2 font-mono text-xs">
+                    <div class="space-y-2 text-xs">
                         <template x-for="node in treeNodes" :key="node.id">
                             <div
                                 draggable="true"
@@ -226,51 +234,51 @@
                                 @dragover.prevent="onDragOver(node, $event)"
                                 @dragleave="onDragLeave(node, $event)"
                                 @drop.prevent="onDrop(node, $event)"
-                                class="flex items-center justify-between py-2 px-3 rounded-lg border transition cursor-grab active:cursor-grabbing select-none"
+                                class="group flex items-center justify-between py-2.5 px-3 rounded-xl border transition cursor-grab active:cursor-grabbing select-none"
                                 :style="'margin-left: ' + ((node.depth - 1) * 22) + 'px'"
                                 :class="{
-                                    'bg-slate-800/80 border-slate-700/60 hover:bg-slate-800': draggedNode?.id !== node.id && dragTargetNodeId !== node.id,
-                                    'opacity-40 border-dashed border-amber-400 bg-slate-800/40': draggedNode?.id === node.id,
-                                    'border-amber-400 bg-amber-500/20 ring-2 ring-amber-400/50 scale-[1.01]': dragTargetNodeId === node.id && draggedNode?.id !== node.id
+                                    'bg-white border-slate-200/90 shadow-2xs hover:border-slate-300 hover:bg-slate-50/70 hover:shadow-xs': draggedNode?.id !== node.id && dragTargetNodeId !== node.id,
+                                    'opacity-40 border-dashed border-red-400 bg-red-50/40': draggedNode?.id === node.id,
+                                    'border-red-600 bg-red-50/70 ring-2 ring-red-200 scale-[1.01] shadow-sm': dragTargetNodeId === node.id && draggedNode?.id !== node.id
                                 }"
                             >
                                 <div class="flex items-center gap-2.5 truncate">
                                     <!-- Poignée de glisser-déposer -->
-                                    <span class="text-slate-500 hover:text-slate-300 cursor-grab" title="Glisser pour changer le parent">
+                                    <span class="text-slate-400 group-hover:text-slate-600 cursor-grab transition" title="Glisser pour changer le parent">
                                         <i data-lucide="grip-vertical" class="w-4 h-4"></i>
                                     </span>
 
                                     <!-- Badge de profondeur -->
-                                    <span class="text-slate-400 text-[10px] font-sans px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">
+                                    <span class="text-slate-600 font-semibold text-[10px] font-sans px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 shrink-0">
                                         Niv.<span x-text="node.depth"></span>
                                     </span>
 
                                     <!-- Libellé du menu -->
-                                    <span class="font-semibold text-white font-sans truncate" x-text="node.label"></span>
+                                    <span class="font-bold text-slate-900 font-sans text-xs tracking-tight truncate" x-text="node.label"></span>
 
                                     <!-- Badge promotionnel optionnel -->
                                     <template x-if="node.badge_text">
-                                        <span class="px-1.5 py-0.2 text-[9px] bg-red-700 text-white rounded font-sans" x-text="node.badge_text"></span>
+                                        <span class="px-1.5 py-0.5 text-[9px] font-semibold bg-red-100 text-red-700 rounded-md font-sans border border-red-200/60 shrink-0" x-text="node.badge_text"></span>
                                     </template>
 
                                     <!-- URL résolue -->
-                                    <span class="text-emerald-400 text-[11px] truncate" x-text="'→ ' + node.resolved_url"></span>
+                                    <span class="text-slate-500 font-mono text-[11px] bg-slate-50 border border-slate-200/70 px-2 py-0.5 rounded-md truncate max-w-xs" x-text="'→ ' + node.resolved_url"></span>
 
                                     <!-- Indicateur de cible de drop -->
                                     <template x-if="dragTargetNodeId === node.id && draggedNode?.id !== node.id">
-                                        <span class="px-2 py-0.5 text-[10px] font-sans font-bold bg-amber-400 text-slate-950 rounded-md animate-pulse">
+                                        <span class="px-2 py-0.5 text-[10px] font-sans font-bold bg-red-600 text-white rounded-md shadow-xs animate-pulse shrink-0">
                                             Rattacher comme sous-élément
                                         </span>
                                     </template>
                                 </div>
 
-                                <div class="flex items-center gap-1.5 shrink-0 font-sans">
+                                <div class="flex items-center gap-1 shrink-0 font-sans">
                                     <!-- Bouton rapide pour détacher le parent (si sous-élément) -->
                                     <template x-if="node.parent_id">
                                         <button
                                             type="button"
                                             @click="removeParent(node)"
-                                            class="p-1.5 text-amber-400 hover:text-amber-300 hover:bg-amber-950/40 rounded transition cursor-pointer"
+                                            class="p-1.5 text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition cursor-pointer"
                                             title="Supprimer le parent (Replacer à la racine)"
                                         >
                                             <i data-lucide="corner-left-up" class="w-3.5 h-3.5"></i>
@@ -281,19 +289,20 @@
                                     <button
                                         type="button"
                                         @click="activeEditItemId = node.id"
-                                        class="p-1.5 text-sky-400 hover:text-sky-300 hover:bg-sky-950/40 rounded transition cursor-pointer"
+                                        class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition cursor-pointer"
                                         title="Modifier cet élément"
                                     >
                                         <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                                     </button>
 
-                                    <!-- Bouton Supprimer l'élément -->
-                                    <form :action="'/admin/menu-items/' + node.id" method="POST" onsubmit="return confirm('Retirer cet élément du menu ?');" class="inline">
+                                    <!-- Bouton Supprimer l'élément (via dialogue de confirmation réutilisable) -->
+                                    <form :id="'delete-item-form-' + node.id" :action="'/admin/menu-items/' + node.id" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button
-                                            type="submit"
-                                            class="p-1.5 text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 rounded transition cursor-pointer"
+                                            type="button"
+                                            @click="confirmDeleteItem(node, $el.closest('form'))"
+                                            class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                                             title="Retirer du menu"
                                         >
                                             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -306,13 +315,13 @@
                 </template>
 
                 <template x-if="treeNodes.length === 0">
-                    <div class="text-center py-12 px-4 space-y-3">
-                        <div class="w-12 h-12 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center mx-auto">
+                    <div class="text-center py-12 px-4 space-y-3 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
                             <i data-lucide="compass" class="w-6 h-6"></i>
                         </div>
                         <div class="space-y-1">
-                            <p class="text-sm font-semibold text-white">Ce menu ne contient aucun élément</p>
-                            <p class="text-xs text-slate-400">Ajoutez des rubriques, des articles ou des liens personnalisés pour composer votre navigation.</p>
+                            <p class="text-sm font-semibold text-slate-900">Ce menu ne contient aucun élément</p>
+                            <p class="text-xs text-slate-500">Ajoutez des rubriques, des articles ou des liens personnalisés pour composer votre navigation.</p>
                         </div>
                         <button
                             type="button"
@@ -569,22 +578,46 @@
                             </div>
                         </div>
 
-                        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3 shrink-0">
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 shrink-0">
                             <button
                                 type="button"
-                                @click="activeEditItemId = null"
-                                class="btn btn-md btn-secondary cursor-pointer"
+                                onclick="window.confirmAction({
+                                    title: 'Retirer cet élément du menu',
+                                    message: 'Êtes-vous sûr de vouloir retirer « {{ addslashes($item->label) }} » du menu ? Tous ses éventuels sous-éléments seront également supprimés.',
+                                    formId: 'delete-item-modal-form-{{ $item->id }}',
+                                    confirmText: 'Retirer du menu',
+                                    cancelText: 'Annuler',
+                                    variant: 'danger',
+                                    icon: 'trash-2'
+                                })"
+                                class="btn btn-md text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 cursor-pointer inline-flex items-center gap-1.5"
                             >
-                                <span>Annuler</span>
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                <span>Supprimer</span>
                             </button>
-                            <button
-                                type="submit"
-                                class="btn btn-md btn-primary justify-center cursor-pointer"
-                            >
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Enregistrer les modifications</span>
-                            </button>
+
+                            <div class="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    @click="activeEditItemId = null"
+                                    class="btn btn-md btn-secondary cursor-pointer"
+                                >
+                                    <span>Annuler</span>
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-md btn-primary justify-center cursor-pointer"
+                                >
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                    <span>Enregistrer les modifications</span>
+                                </button>
+                            </div>
                         </div>
+                    </form>
+
+                    <form id="delete-item-modal-form-{{ $item->id }}" action="{{ route('admin.menus.items.destroy', $item) }}" method="POST" class="hidden">
+                        @csrf
+                        @method('DELETE')
                     </form>
                 </div>
             </div>
@@ -828,6 +861,35 @@ document.addEventListener('alpine:init', () => {
                 this.addToast('success', data.message, 'Succès');
             } catch (err) {
                 this.addToast('error', 'Erreur réseau lors du glisser-déposer.', 'Erreur');
+            }
+        },
+
+        // --- GESTION DE LA SUPPRESSION AVEC LE CONFIRM DIALOG RÉUTILISABLE ---
+        confirmDeleteItem(node, formEl) {
+            const label = node?.label || 'cet élément';
+            const formId = 'delete-item-form-' + node.id;
+            const targetForm = formEl || document.getElementById(formId);
+
+            if (typeof window.confirmAction === 'function') {
+                window.confirmAction({
+                    title: 'Retirer cet élément du menu',
+                    message: `Êtes-vous sûr de vouloir retirer « ${label} » du menu ? Tous ses éventuels sous-éléments seront également supprimés.`,
+                    formId: formId,
+                    form: targetForm,
+                    onConfirm: () => {
+                        if (targetForm && typeof targetForm.submit === 'function') {
+                            targetForm.submit();
+                        }
+                    },
+                    confirmText: 'Retirer du menu',
+                    cancelText: 'Annuler',
+                    variant: 'danger',
+                    icon: 'trash-2'
+                });
+            } else if (confirm(`Retirer « ${label} » du menu ?`)) {
+                if (targetForm && typeof targetForm.submit === 'function') {
+                    targetForm.submit();
+                }
             }
         },
     }));

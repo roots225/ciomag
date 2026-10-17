@@ -5,12 +5,12 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-    <div class="bg-slate-900 text-white rounded-2xl p-8 mb-10 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+    <div class="bg-[#182322] border border-ciomag-teal/30 text-white rounded-2xl p-8 mb-10 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-sm">
         @if($author->avatar_url)
-            <img src="{{ $author->avatar_url }}" alt="{{ $author->display_name }}" class="w-24 h-24 rounded-full object-cover border-2 border-red-600">
+            <img src="{{ $author->avatar_url }}" alt="{{ $author->display_name }}" class="w-24 h-24 rounded-full object-cover border-2 border-ciomag-amber shadow-sm">
         @endif
         <div>
-            <span class="px-2.5 py-0.5 text-xs font-bold uppercase bg-red-700 text-white rounded-xs">
+            <span class="px-2.5 py-0.5 text-xs font-black uppercase bg-ciomag-pine text-white rounded-xs">
                 {{ $author->role?->name ?? 'Rédaction' }}
             </span>
             <h1 class="mt-2 text-3xl font-black">{{ $author->display_name }}</h1>
@@ -30,7 +30,7 @@
                         </a>
                     @endif
                     <div class="p-6">
-                        <h2 class="text-lg font-bold text-slate-900 hover:text-red-700 leading-snug">
+                        <h2 class="text-lg font-bold text-slate-900 hover:text-ciomag-teal leading-snug">
                             <a href="{{ route('magazine.post', $post->slug) }}">{{ $post->title }}</a>
                         </h2>
                         <p class="mt-2 text-sm text-slate-600 line-clamp-3">{{ $post->excerpt }}</p>

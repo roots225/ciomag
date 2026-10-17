@@ -8,23 +8,23 @@
         <!-- Événement Phare avec Compte à Rebours -->
         @if($featuredEvent)
             <section x-data="eventCountdown('{{ $featuredEvent->starts_at->toIso8601String() }}')" x-init="start()"
-                class="bg-slate-950 text-white rounded-3xl overflow-hidden shadow-xl border border-slate-800 relative">
+                class="bg-[#182322] text-white rounded-3xl overflow-hidden shadow-xl border border-ciomag-teal/30 relative">
                 @if($featuredEvent->cover_url)
                     <img src="{{ $featuredEvent->cover_url }}" alt="{{ $featuredEvent->title }}"
                         class="absolute inset-0 w-full h-full object-cover opacity-35">
                 @endif
-                <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/60"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-[#182322] via-[#182322]/90 to-[#182322]/60"></div>
 
                 <div class="relative z-10 p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-7 space-y-4">
                         <div class="flex flex-wrap items-center gap-2">
                             <span
-                                class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5">
-                                <i data-lucide="calendar-clock" class="w-3.5 h-3.5"></i>
+                                class="px-3 py-1 rounded-full bg-ciomag-pine text-white text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5 border border-white/10">
+                                <i data-lucide="calendar-clock" class="w-3.5 h-3.5 text-ciomag-amber"></i>
                                 <span>{{ $featuredEvent->event_type }}</span>
                             </span>
                             <span
-                                class="px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold inline-flex items-center gap-1.5">
+                                class="px-3 py-1 rounded-full bg-white/10 text-ciomag-amber text-xs font-bold inline-flex items-center gap-1.5">
                                 <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
                                 <span>{{ $featuredEvent->locationLabel() }}</span>
                             </span>
@@ -32,13 +32,13 @@
 
                         <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
                             <a href="{{ route('magazine.events.show', $featuredEvent->slug) }}"
-                                class="hover:underline decoration-red-500">
+                                class="hover:underline decoration-ciomag-amber">
                                 {{ $featuredEvent->title }}
                             </a>
                         </h1>
 
                         @if($featuredEvent->subtitle)
-                            <p class="text-base sm:text-lg text-amber-400 font-semibold">{{ $featuredEvent->subtitle }}</p>
+                            <p class="text-base sm:text-lg text-ciomag-amber font-semibold">{{ $featuredEvent->subtitle }}</p>
                         @endif
 
                         <p class="text-sm text-slate-300 leading-relaxed max-w-2xl">
@@ -47,7 +47,7 @@
 
                         <div class="pt-3 flex flex-wrap items-center gap-4">
                             <a href="{{ route('magazine.events.show', $featuredEvent->slug) }}#event-registration"
-                                class="px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-lg transition">
+                                class="px-6 py-3.5 bg-ciomag-amber hover:bg-ciomag-amber-hover text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-lg transition">
                                 <i data-lucide="ticket" class="w-4 h-4"></i>
                                 <span>S'inscrire à l'événement</span>
                             </a>
@@ -61,9 +61,9 @@
 
                     <!-- Décompte Temps Réel jusqu'au Jour J -->
                     <div
-                        class="lg:col-span-5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-2xl p-6 sm:p-8 text-center space-y-5">
+                        class="lg:col-span-5 bg-black/40 backdrop-blur-md border border-white/15 rounded-2xl p-6 sm:p-8 text-center space-y-5">
                         <div class="space-y-1">
-                            <span class="text-xs font-extrabold uppercase tracking-widest text-amber-400 block">Compte à rebours
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-ciomag-amber block">Compte à rebours
                                 avant ouverture</span>
                             <span class="text-xs text-slate-400 block">
                                 {{ $featuredEvent->starts_at->translatedFormat('l d F Y à H:i') }}
@@ -71,22 +71,22 @@
                         </div>
 
                         <div class="grid grid-cols-4 gap-3">
-                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <div class="bg-black/50 border border-white/10 rounded-xl p-3">
                                 <span class="text-2xl sm:text-3xl font-black text-white block font-mono" x-text="days">00</span>
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Jours</span>
                             </div>
-                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <div class="bg-black/50 border border-white/10 rounded-xl p-3">
                                 <span class="text-2xl sm:text-3xl font-black text-white block font-mono"
                                     x-text="hours">00</span>
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Heures</span>
                             </div>
-                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <div class="bg-black/50 border border-white/10 rounded-xl p-3">
                                 <span class="text-2xl sm:text-3xl font-black text-white block font-mono"
                                     x-text="minutes">00</span>
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Minutes</span>
                             </div>
-                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
-                                <span class="text-2xl sm:text-3xl font-black text-amber-400 block font-mono"
+                            <div class="bg-black/50 border border-white/10 rounded-xl p-3">
+                                <span class="text-2xl sm:text-3xl font-black text-ciomag-amber block font-mono"
                                     x-text="seconds">00</span>
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Secondes</span>
                             </div>
@@ -103,9 +103,9 @@
 
         <!-- Liste des Événements -->
         <section class="space-y-6">
-            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-3">
+            <div class="flex items-center justify-between border-b-2 border-ciomag-teal pb-3">
                 <h2 class="text-xl font-black uppercase tracking-tight text-slate-950 flex items-center gap-2">
-                    <i data-lucide="calendar" class="w-5 h-5 text-red-700"></i>
+                    <i data-lucide="calendar" class="w-5 h-5 text-ciomag-teal"></i>
                     <span>Agenda des Assises, Forums & Tables Rondes CIOMAG</span>
                 </h2>
                 <span class="text-xs font-semibold text-slate-500">Accréditations ouvertes</span>
@@ -123,11 +123,11 @@
                                         class="w-full h-full object-cover hover:scale-105 transition duration-500">
                                 @endif
                                 <span
-                                    class="absolute top-3 left-3 px-3 py-1 rounded-md bg-red-700 text-white text-[11px] font-bold uppercase">
+                                    class="absolute top-3 left-3 px-3 py-1 rounded-md bg-ciomag-pine text-white text-[11px] font-black uppercase">
                                     {{ $event->event_type }}
                                 </span>
                                 <span
-                                    class="absolute bottom-3 left-3 px-3 py-1 rounded-md bg-slate-950/90 text-amber-400 text-xs font-bold inline-flex items-center gap-1.5">
+                                    class="absolute bottom-3 left-3 px-3 py-1 rounded-md bg-slate-950/90 text-ciomag-amber text-xs font-bold inline-flex items-center gap-1.5">
                                     <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
                                     <span>{{ $event->starts_at->translatedFormat('d M Y') }}</span>
                                 </span>
@@ -135,11 +135,11 @@
 
                             <div class="p-6 space-y-3">
                                 <div class="flex items-center gap-2 text-xs text-slate-500">
-                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-700"></i>
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-ciomag-teal"></i>
                                     <span>{{ $event->locationLabel() }}</span>
                                 </div>
 
-                                <h3 class="text-xl font-extrabold text-slate-950 hover:text-red-700 leading-snug">
+                                <h3 class="text-xl font-extrabold text-slate-950 hover:text-ciomag-teal leading-snug">
                                     <a href="{{ route('magazine.events.show', $event->slug) }}">{{ $event->title }}</a>
                                 </h3>
 
@@ -154,7 +154,7 @@
                                 {{ count($event->program ?? []) }} sessions • {{ count($event->committee ?? []) }} intervenants
                             </span>
                             <a href="{{ route('magazine.events.show', $event->slug) }}"
-                                class="px-2 py-2 bg-slate-900 hover:bg-red-700 text-white font-bold rounded-xl inline-flex items-center gap-1.5 transition">
+                                class="px-2 py-2 bg-slate-900 hover:bg-ciomag-teal text-white font-bold rounded-xl inline-flex items-center gap-1.5 transition">
                                 <span>En savoir plus</span>
                                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </a>

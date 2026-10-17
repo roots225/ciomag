@@ -25,7 +25,7 @@
 
     <!-- Fil d'Ariane & Retour -->
     <div class="mb-8 flex items-center justify-between">
-        <a href="{{ route('magazine.subscriptions.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-red-700 transition">
+        <a href="{{ route('magazine.subscriptions.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-ciomag-teal transition">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             <span>Retour aux formules d'abonnement</span>
         </a>
@@ -219,7 +219,7 @@
                 <button
                     type="button"
                     @click="step = 2"
-                    class="px-8 py-3.5 bg-slate-950 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
+                    class="px-8 py-3.5 bg-ciomag-pine hover:bg-ciomag-teal text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
                 >
                     <span>Continuer vers les conditions</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -260,14 +260,14 @@
             <!-- Cases à cocher interactives -->
             <div class="space-y-3 pt-2">
                 <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50/50 cursor-pointer transition">
-                    <input type="checkbox" x-model="termsAccepted" class="w-4 h-4 rounded text-red-700 border-slate-300 focus:ring-red-600 mt-0.5">
+                    <input type="checkbox" x-model="termsAccepted" class="w-4 h-4 rounded text-ciomag-teal border-slate-300 focus:ring-ciomag-teal mt-0.5">
                     <span class="text-xs text-slate-700 leading-snug">
-                        <strong>J'accepte sans réserve les Conditions Générales d'Abonnement (CGA)</strong> et la Politique de Confidentialité de CIOMAG Media. <span class="text-red-600">*</span>
+                        <strong>J'accepte sans réserve les Conditions Générales d'Abonnement (CGA)</strong> et la Politique de Confidentialité de CIOMAG Media. <span class="text-ciomag-crimson">*</span>
                     </span>
                 </label>
 
                 <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50/50 cursor-pointer transition">
-                    <input type="checkbox" x-model="newsletterOptIn" class="w-4 h-4 rounded text-red-700 border-slate-300 focus:ring-red-600 mt-0.5">
+                    <input type="checkbox" x-model="newsletterOptIn" class="w-4 h-4 rounded text-ciomag-teal border-slate-300 focus:ring-ciomag-teal mt-0.5">
                     <span class="text-xs text-slate-700 leading-snug">
                         Je souhaite recevoir la veille hebdomadaire des décideurs IT et les invitations aux tables rondes privées organisées par CIOMAG.
                     </span>
@@ -288,7 +288,7 @@
                     type="button"
                     @click="step = 3"
                     :disabled="!termsAccepted"
-                    class="px-8 py-3.5 bg-slate-950 hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
+                    class="px-8 py-3.5 bg-slate-950 hover:bg-ciomag-teal disabled:opacity-50 disabled:pointer-events-none text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
                 >
                     <span>Accepter et continuer</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -328,24 +328,24 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Nom & Prénom <span class="text-red-600">*</span></label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Nom & Prénom <span class="text-rose-600">*</span></label>
                         <input
                             type="text"
                             x-model="personalInfo.display_name"
                             required
                             placeholder="Ex: Marc Kouadio"
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 transition"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal transition"
                         >
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Email Professionnel <span class="text-red-600">*</span></label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Email Professionnel <span class="text-rose-600">*</span></label>
                         <input
                             type="email"
                             x-model="personalInfo.email"
                             required
                             :disabled="currentUser !== null"
                             placeholder="prenom.nom@entreprise.com"
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 disabled:bg-slate-100 disabled:text-slate-500 transition"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal disabled:bg-slate-100 disabled:text-slate-500 transition"
                         >
                     </div>
                 </div>
@@ -357,7 +357,7 @@
                             type="text"
                             x-model="personalInfo.company"
                             placeholder="Ex: Banque Centrale, Ministère, Télécoms..."
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 transition"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal transition"
                         >
                     </div>
                     <div>
@@ -366,7 +366,7 @@
                             type="text"
                             x-model="personalInfo.job_title"
                             placeholder="Ex: DSI, CTO, RSSI, Chef de Projet..."
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 transition"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal transition"
                         >
                     </div>
                 </div>
@@ -374,25 +374,25 @@
                 <template x-if="!currentUser">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Mot de passe abonné <span class="text-red-600">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Mot de passe abonné <span class="text-rose-600">*</span></label>
                             <input
                                 type="password"
                                 x-model="personalInfo.password"
                                 required
                                 minlength="6"
                                 placeholder="Au moins 6 caractères"
-                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 transition"
+                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal transition"
                             >
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Confirmer le mot de passe <span class="text-red-600">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Confirmer le mot de passe <span class="text-rose-600">*</span></label>
                             <input
                                 type="password"
                                 x-model="personalInfo.password_confirmation"
                                 required
                                 minlength="6"
                                 placeholder="Retapez votre mot de passe"
-                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-red-700 focus:ring-1 focus:ring-red-700 transition"
+                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal transition"
                             >
                         </div>
                     </div>
@@ -410,7 +410,7 @@
                     <button
                         type="submit"
                         :disabled="isSubmittingStep3"
-                        class="px-8 py-3.5 bg-red-700 hover:bg-red-800 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
+                        class="px-8 py-3.5 bg-ciomag-teal hover:bg-ciomag-pine disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
                     >
                         <template x-if="isSubmittingStep3">
                             <span class="inline-flex items-center gap-2">
@@ -470,7 +470,7 @@
                         @input="handleOtpInput(idx, $event)"
                         @keydown.backspace="handleOtpBackspace(idx, $event)"
                         @paste="handleOtpPaste($event)"
-                        class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-black text-slate-950 bg-slate-50 border-2 border-slate-300 rounded-2xl focus:bg-white focus:border-red-700 focus:ring-2 focus:ring-red-100 outline-none transition"
+                        class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-black text-slate-950 bg-slate-50 border-2 border-slate-300 rounded-2xl focus:bg-white focus:border-ciomag-teal focus:ring-2 focus:ring-ciomag-teal/20 outline-none transition"
                     >
                 </template>
             </div>
@@ -487,7 +487,7 @@
                             type="button"
                             @click="resendOtpCode"
                             :disabled="isResendingOtp"
-                            class="font-black text-red-700 hover:text-red-800 hover:underline cursor-pointer disabled:opacity-50"
+                            class="font-black text-ciomag-teal hover:text-ciomag-pine hover:underline cursor-pointer disabled:opacity-50"
                         >
                             <span>Renvoyer un nouveau code OTP</span>
                         </button>
@@ -509,7 +509,7 @@
                     type="button"
                     @click="verifyOtpCode"
                     :disabled="isVerifyingOtp || getFullOtpCode().length !== 6"
-                    class="px-8 py-3.5 bg-slate-950 hover:bg-red-700 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
+                    class="px-8 py-3.5 bg-slate-950 hover:bg-ciomag-teal disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-md transition cursor-pointer"
                 >
                     <template x-if="isVerifyingOtp">
                         <span class="inline-flex items-center gap-2">
@@ -563,11 +563,11 @@
                     <div
                         @click="paymentData.method = 'card'"
                         class="p-4 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between"
-                        :class="paymentData.method === 'card' ? 'border-red-600 bg-red-50/20 text-slate-950 shadow-xs' : 'border-slate-200 hover:border-slate-300 bg-white'"
+                        :class="paymentData.method === 'card' ? 'border-ciomag-teal bg-ciomag-teal-pale/40 text-slate-950 shadow-xs' : 'border-slate-200 hover:border-slate-300 bg-white'"
                     >
                         <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="credit-card" class="w-5 h-5 text-red-600"></i>
-                            <span class="w-4 h-4 rounded-full border flex items-center justify-center" :class="paymentData.method === 'card' ? 'bg-red-600 border-red-600 text-white' : 'border-slate-300'">
+                            <i data-lucide="credit-card" class="w-5 h-5 text-ciomag-teal"></i>
+                            <span class="w-4 h-4 rounded-full border flex items-center justify-center" :class="paymentData.method === 'card' ? 'bg-ciomag-teal border-ciomag-teal text-white' : 'border-slate-300'">
                                 <i data-lucide="check" class="w-2.5 h-2.5" x-show="paymentData.method === 'card'"></i>
                             </span>
                         </div>
@@ -581,11 +581,11 @@
                     <div
                         @click="paymentData.method = 'mobile_money'"
                         class="p-4 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between"
-                        :class="paymentData.method === 'mobile_money' ? 'border-amber-500 bg-amber-50/20 text-slate-950 shadow-xs' : 'border-slate-200 hover:border-slate-300 bg-white'"
+                        :class="paymentData.method === 'mobile_money' ? 'border-ciomag-amber bg-ciomag-amber-light text-slate-950 shadow-xs' : 'border-slate-200 hover:border-slate-300 bg-white'"
                     >
                         <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="smartphone" class="w-5 h-5 text-amber-600"></i>
-                            <span class="w-4 h-4 rounded-full border flex items-center justify-center" :class="paymentData.method === 'mobile_money' ? 'bg-amber-400 border-amber-400 text-slate-950' : 'border-slate-300'">
+                            <i data-lucide="smartphone" class="w-5 h-5 text-ciomag-amber"></i>
+                            <span class="w-4 h-4 rounded-full border flex items-center justify-center" :class="paymentData.method === 'mobile_money' ? 'bg-ciomag-amber border-ciomag-amber text-slate-950' : 'border-slate-300'">
                                 <i data-lucide="check" class="w-2.5 h-2.5" x-show="paymentData.method === 'mobile_money'"></i>
                             </span>
                         </div>
@@ -633,7 +633,7 @@
                             type="text"
                             x-model="paymentData.card_name"
                             placeholder="Ex: MARC KOUADIO"
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700 focus:ring-1 focus:ring-red-700 uppercase"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal uppercase"
                         >
                     </div>
 
@@ -646,7 +646,7 @@
                                 @input="formatCardNumber($event)"
                                 maxlength="19"
                                 placeholder="4000 0000 0000 0000"
-                                class="w-full pl-3.5 pr-10 py-2.5 text-sm font-mono tracking-wider border border-slate-300 rounded-xl bg-white focus:border-red-700 focus:ring-1 focus:ring-red-700"
+                                class="w-full pl-3.5 pr-10 py-2.5 text-sm font-mono tracking-wider border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal"
                             >
                             <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3"></i>
                         </div>
@@ -661,7 +661,7 @@
                                 @input="formatCardExpiry($event)"
                                 maxlength="5"
                                 placeholder="MM/AA"
-                                class="w-full px-3.5 py-2.5 text-sm font-mono text-center border border-slate-300 rounded-xl bg-white focus:border-red-700 focus:ring-1 focus:ring-red-700"
+                                class="w-full px-3.5 py-2.5 text-sm font-mono text-center border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal"
                             >
                         </div>
                         <div>
@@ -671,7 +671,7 @@
                                 x-model="paymentData.card_cvc"
                                 maxlength="4"
                                 placeholder="123"
-                                class="w-full px-3.5 py-2.5 text-sm font-mono text-center border border-slate-300 rounded-xl bg-white focus:border-red-700 focus:ring-1 focus:ring-red-700"
+                                class="w-full px-3.5 py-2.5 text-sm font-mono text-center border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal"
                             >
                         </div>
                     </div>
@@ -693,7 +693,7 @@
 
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Opérateur Réseau *</label>
-                        <select x-model="paymentData.mobile_operator" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700">
+                        <select x-model="paymentData.mobile_operator" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal">
                             <option value="Orange Money">Orange Money</option>
                             <option value="Wave">Wave</option>
                             <option value="MTN MoMo">MTN Mobile Money</option>
@@ -707,7 +707,7 @@
                             type="tel"
                             x-model="paymentData.mobile_phone"
                             placeholder="+225 07 00 00 00 00"
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal"
                         >
                     </div>
 
@@ -726,7 +726,7 @@
                             type="text"
                             x-model="paymentData.company_name"
                             placeholder="Nom officiel de l'entreprise"
-                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700"
+                            class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal"
                         >
                     </div>
 
@@ -737,7 +737,7 @@
                                 type="text"
                                 x-model="paymentData.company_siret"
                                 placeholder="Identifiant légal"
-                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700"
+                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal"
                             >
                         </div>
                         <div>
@@ -746,7 +746,7 @@
                                 type="text"
                                 x-model="paymentData.company_address"
                                 placeholder="Siège social, Ville, Pays"
-                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-red-700"
+                                class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl bg-white focus:border-ciomag-teal"
                             >
                         </div>
                     </div>
@@ -767,7 +767,7 @@
                     type="button"
                     @click="processPaymentSubmit"
                     :disabled="isProcessingPayment"
-                    class="px-8 py-3.5 bg-red-700 hover:bg-red-800 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-lg transition cursor-pointer"
+                    class="px-8 py-3.5 bg-ciomag-amber hover:bg-ciomag-amber-hover text-slate-950 disabled:opacity-50 text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center gap-2 shadow-lg transition cursor-pointer"
                 >
                     <template x-if="isProcessingPayment">
                         <span class="inline-flex items-center gap-2">
@@ -839,7 +839,7 @@
                     <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                         <a
                             href="{{ route('magazine.home') }}"
-                            class="w-full sm:w-auto px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-md transition"
+                            class="w-full sm:w-auto px-6 py-3.5 bg-ciomag-teal hover:bg-ciomag-pine text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-md transition"
                         >
                             <i data-lucide="sparkles" class="w-4 h-4"></i>
                             <span>Découvrir les enquêtes Premium</span>
@@ -897,7 +897,7 @@
                         <button
                             type="button"
                             @click="retryPayment"
-                            class="w-full sm:w-auto px-8 py-3.5 bg-red-700 hover:bg-red-800 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
+                            class="w-full sm:w-auto px-8 py-3.5 bg-ciomag-teal hover:bg-ciomag-pine text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
                         >
                             <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                             <span>Revenir en arrière et réessayer le paiement</span>

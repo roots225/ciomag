@@ -30,10 +30,10 @@
                         <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
                         <span>Tous les événements</span>
                     </a>
-                    <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-extrabold uppercase tracking-wider">
+                    <span class="px-3 py-1 rounded-full bg-ciomag-pine text-white text-xs font-black uppercase tracking-wider border border-white/10">
                         {{ $event->event_type }}
                     </span>
-                    <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-extrabold uppercase">
+                    <span class="px-3 py-1 rounded-full bg-ciomag-amber text-slate-950 text-xs font-black uppercase">
                         {{ $event->formattedPrice() }}
                     </span>
                 </div>
@@ -43,19 +43,19 @@
                 </h1>
 
                 @if($event->subtitle)
-                    <p class="text-lg text-amber-400 font-semibold">{{ $event->subtitle }}</p>
+                    <p class="text-lg text-ciomag-amber font-semibold">{{ $event->subtitle }}</p>
                 @endif
 
                 <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-200">
                     <div class="flex items-center gap-2.5 bg-white/5 p-3 rounded-xl border border-white/10">
-                        <i data-lucide="calendar" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                        <i data-lucide="calendar" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                         <div>
                             <span class="text-slate-400 block text-[10px] uppercase font-bold">Date & Horaires</span>
                             <span class="font-bold">{{ $event->starts_at->translatedFormat('d F Y • H:i') }}</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2.5 bg-white/5 p-3 rounded-xl border border-white/10">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-red-500 shrink-0"></i>
+                        <i data-lucide="map-pin" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                         <div>
                             <span class="text-slate-400 block text-[10px] uppercase font-bold">Lieu de l'événement</span>
                             <span class="font-bold">{{ $event->locationLabel() }}</span>
@@ -65,32 +65,32 @@
             </div>
 
             <!-- Compte à rebours jusqu'au jour de l'événement -->
-            <div id="event-countdown" class="lg:col-span-5 bg-slate-900/95 border border-amber-400/30 rounded-2xl p-6 sm:p-8 text-center space-y-5 shadow-2xl">
-                <div class="flex items-center justify-center gap-2 text-amber-400 text-xs font-extrabold uppercase tracking-widest">
+            <div id="event-countdown" class="lg:col-span-5 bg-black/40 border border-ciomag-amber/40 rounded-2xl p-6 sm:p-8 text-center space-y-5 shadow-2xl backdrop-blur-md">
+                <div class="flex items-center justify-center gap-2 text-ciomag-amber text-xs font-extrabold uppercase tracking-widest">
                     <i data-lucide="timer" class="w-4 h-4"></i>
                     <span>Décompte jusqu'au jour de l'événement</span>
                 </div>
 
                 <div class="grid grid-cols-4 gap-3">
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
+                    <div class="bg-black/50 border border-white/10 rounded-xl p-3.5">
                         <span class="text-2xl sm:text-4xl font-black text-white block font-mono" x-text="days">00</span>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Jours</span>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
+                    <div class="bg-black/50 border border-white/10 rounded-xl p-3.5">
                         <span class="text-2xl sm:text-4xl font-black text-white block font-mono" x-text="hours">00</span>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Heures</span>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
+                    <div class="bg-black/50 border border-white/10 rounded-xl p-3.5">
                         <span class="text-2xl sm:text-4xl font-black text-white block font-mono" x-text="minutes">00</span>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Minutes</span>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
-                        <span class="text-2xl sm:text-4xl font-black text-amber-400 block font-mono" x-text="seconds">00</span>
+                    <div class="bg-black/50 border border-white/10 rounded-xl p-3.5">
+                        <span class="text-2xl sm:text-4xl font-black text-ciomag-amber block font-mono" x-text="seconds">00</span>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Secondes</span>
                     </div>
                 </div>
 
-                <a href="#event-registration" class="w-full py-3.5 bg-red-700 hover:bg-red-800 text-white text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-lg transition">
+                <a href="#event-registration" class="w-full py-3.5 bg-ciomag-amber hover:bg-ciomag-amber-hover text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-lg transition">
                     <i data-lucide="user-plus" class="w-4 h-4"></i>
                     <span>Réserver mon accréditation maintenant</span>
                 </a>
@@ -105,7 +105,7 @@
             <!-- 1. Présentation de l'événement -->
             <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-4">
                 <h2 class="text-lg font-black uppercase tracking-wider text-slate-950 border-b border-slate-100 pb-3 flex items-center gap-2">
-                    <i data-lucide="info" class="w-5 h-5 text-red-700"></i>
+                    <i data-lucide="info" class="w-5 h-5 text-ciomag-teal"></i>
                     <span>À propos de l'événement</span>
                 </h2>
                 @if($event->excerpt)
@@ -121,7 +121,7 @@
                 <section id="event-program" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-6">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                         <h2 class="text-lg font-black uppercase tracking-wider text-slate-950 flex items-center gap-2">
-                            <i data-lucide="list-ordered" class="w-5 h-5 text-red-700"></i>
+                            <i data-lucide="list-ordered" class="w-5 h-5 text-ciomag-teal"></i>
                             <span>Programme Officiel des Sessions</span>
                         </h2>
                         <span class="text-xs font-bold text-slate-500">{{ count($event->program) }} temps forts</span>
@@ -129,14 +129,14 @@
 
                     <div class="space-y-4">
                         @foreach($event->program as $session)
-                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row items-start gap-4 hover:border-red-200 transition">
-                                <div class="px-3.5 py-2 rounded-xl bg-slate-900 text-amber-400 text-xs font-extrabold font-mono shrink-0">
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row items-start gap-4 hover:border-ciomag-teal/40 transition">
+                                <div class="px-3.5 py-2 rounded-xl bg-[#182322] text-ciomag-amber text-xs font-extrabold font-mono shrink-0">
                                     {{ $session['time'] ?? 'Horaire' }}
                                 </div>
                                 <div class="space-y-1.5 flex-1">
                                     <div class="flex flex-wrap items-center gap-2">
                                         @if(!empty($session['role']))
-                                            <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-red-100 text-red-800 rounded-xs">
+                                            <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-ciomag-teal-pale text-ciomag-pine rounded-xs">
                                                 {{ $session['role'] }}
                                             </span>
                                         @endif
@@ -149,7 +149,7 @@
                                     </div>
                                     <h3 class="text-base font-extrabold text-slate-900">{{ $session['title'] ?? '' }}</h3>
                                     @if(!empty($session['speaker']))
-                                        <p class="text-xs font-bold text-red-700 flex items-center gap-1.5">
+                                        <p class="text-xs font-bold text-ciomag-teal flex items-center gap-1.5">
                                             <i data-lucide="mic" class="w-3.5 h-3.5"></i>
                                             <span>{{ $session['speaker'] }}</span>
                                         </p>
@@ -169,7 +169,7 @@
                 <section id="event-committee" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-6">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                         <h2 class="text-lg font-black uppercase tracking-wider text-slate-950 flex items-center gap-2">
-                            <i data-lucide="users" class="w-5 h-5 text-red-700"></i>
+                            <i data-lucide="users" class="w-5 h-5 text-ciomag-teal"></i>
                             <span>Comité d'Organisation & Intervenants</span>
                         </h2>
                         <span class="text-xs font-bold text-slate-500">{{ count($event->committee) }} membres</span>
@@ -182,10 +182,10 @@
                                     <img
                                         src="{{ $member['photo_url'] }}"
                                         alt="{{ $member['name'] ?? 'Membre' }}"
-                                        class="w-16 h-16 rounded-2xl object-cover border-2 border-red-700 shrink-0"
+                                        class="w-16 h-16 rounded-2xl object-cover border-2 border-ciomag-teal shrink-0"
                                     >
                                 @else
-                                    <div class="w-16 h-16 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black text-lg shrink-0">
+                                    <div class="w-16 h-16 rounded-2xl bg-ciomag-pine text-white flex items-center justify-center font-black text-lg shrink-0">
                                         {{ mb_substr($member['name'] ?? 'C', 0, 1) }}
                                     </div>
                                 @endif
@@ -193,7 +193,7 @@
                                 <div class="space-y-1.5 min-w-0 flex-1">
                                     <h3 class="text-base font-extrabold text-slate-950 truncate">{{ $member['name'] ?? '' }}</h3>
                                     @if(!empty($member['role']))
-                                        <p class="text-xs font-bold text-red-700">{{ $member['role'] }}</p>
+                                        <p class="text-xs font-bold text-ciomag-teal">{{ $member['role'] }}</p>
                                     @endif
                                     @if(!empty($member['company']))
                                         <p class="text-xs text-slate-500">{{ $member['company'] }}</p>
@@ -206,7 +206,7 @@
                                                 href="{{ $member['linkedin'] }}"
                                                 target="_blank"
                                                 rel="noopener"
-                                                class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-blue-700 text-white text-[11px] font-bold inline-flex items-center gap-1 transition"
+                                                class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-ciomag-teal text-white text-[11px] font-bold inline-flex items-center gap-1 transition"
                                                 title="Profil LinkedIn"
                                             >
                                                 <i data-lucide="linkedin" class="w-3 h-3"></i>
@@ -249,7 +249,7 @@
                 <section id="event-partners" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-6">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                         <h2 class="text-lg font-black uppercase tracking-wider text-slate-950 flex items-center gap-2">
-                            <i data-lucide="handshake" class="w-5 h-5 text-red-700"></i>
+                            <i data-lucide="handshake" class="w-5 h-5 text-ciomag-teal"></i>
                             <span>Partenaires & Sponsors Officiels</span>
                         </h2>
                         <span class="text-xs font-bold text-slate-500">{{ count($event->partners) }} partenaires</span>
@@ -261,7 +261,7 @@
                                 href="{{ !empty($partner['website']) ? $partner['website'] : '#' }}"
                                 target="_blank"
                                 rel="noopener"
-                                class="p-4 rounded-2xl border border-slate-200 hover:border-red-700 bg-slate-50/50 flex flex-col items-center justify-between text-center gap-3 group transition"
+                                class="p-4 rounded-2xl border border-slate-200 hover:border-ciomag-teal bg-slate-50/50 flex flex-col items-center justify-between text-center gap-3 group transition"
                             >
                                 @if(!empty($partner['logo_url']))
                                     <img
@@ -275,7 +275,7 @@
                                     </div>
                                 @endif
                                 <div>
-                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-700 block">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-ciomag-teal block">
                                         {{ $partner['tier'] ?? 'Partenaire' }}
                                     </span>
                                     <span class="text-xs font-bold text-slate-900 block mt-0.5">
@@ -291,9 +291,9 @@
 
         <!-- Colonne Latérale : Formulaire d'Inscription à l'Événement (4 colonnes) -->
         <div class="lg:col-span-4">
-            <div id="event-registration" class="bg-white rounded-2xl border-2 border-slate-900 p-6 sm:p-8 shadow-xl space-y-5 sticky top-24">
+            <div id="event-registration" class="bg-white rounded-2xl border-2 border-ciomag-teal p-6 sm:p-8 shadow-xl space-y-5 sticky top-24">
                 <div class="border-b border-slate-100 pb-4">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-red-700">Accréditation & Billetterie</span>
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-ciomag-teal">Accréditation & Billetterie</span>
                     <h2 class="text-xl font-black text-slate-950 mt-0.5">S'inscrire à l'événement</h2>
                     <p class="text-xs text-slate-500 mt-1">
                         {{ $event->confirmed_registrations_count }} participants déjà inscrits sur {{ $event->capacity }} places.
@@ -305,33 +305,33 @@
                         @csrf
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Nom & Prénom *</label>
-                            <input type="text" name="full_name" value="{{ old('full_name', auth()->user()?->display_name) }}" required placeholder="Ex: Fatou Ndiaye" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                            <input type="text" name="full_name" value="{{ old('full_name', auth()->user()?->display_name) }}" required placeholder="Ex: Fatou Ndiaye" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Email Professionnel *</label>
-                            <input type="email" name="email" value="{{ old('email', auth()->user()?->email) }}" required placeholder="nom@organisation.com" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                            <input type="email" name="email" value="{{ old('email', auth()->user()?->email) }}" required placeholder="nom@organisation.com" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Entreprise / Ministère *</label>
-                                <input type="text" name="company" value="{{ old('company') }}" required placeholder="Organisation" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                                <input type="text" name="company" value="{{ old('company') }}" required placeholder="Organisation" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Fonction *</label>
-                                <input type="text" name="job_title" value="{{ old('job_title') }}" required placeholder="DSI, RSSI, DG..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                                <input type="text" name="job_title" value="{{ old('job_title') }}" required placeholder="DSI, RSSI, DG..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Téléphone</label>
-                                <input type="text" name="phone" value="{{ old('phone') }}" placeholder="+225 / +212..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                                <input type="text" name="phone" value="{{ old('phone') }}" placeholder="+225 / +212..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Pays</label>
-                                <input type="text" name="country" value="{{ old('country', $event->country) }}" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl">
+                                <input type="text" name="country" value="{{ old('country', $event->country) }}" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">
                             </div>
                         </div>
 
@@ -347,10 +347,10 @@
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Ateliers ou attentes particulières</label>
-                            <textarea name="notes" rows="2" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl">{{ old('notes') }}</textarea>
+                            <textarea name="notes" rows="2" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-ciomag-teal">{{ old('notes') }}</textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-3.5 bg-red-700 hover:bg-red-800 text-white text-sm font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-md transition cursor-pointer">
+                        <button type="submit" class="w-full py-3.5 bg-ciomag-amber hover:bg-ciomag-amber-hover text-slate-950 text-sm font-black uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-md transition cursor-pointer">
                             <i data-lucide="ticket-check" class="w-4 h-4"></i>
                             <span>Confirmer mon inscription</span>
                         </button>

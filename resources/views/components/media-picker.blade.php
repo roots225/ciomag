@@ -5,6 +5,9 @@
     'previewUrl' => '',
     'previewName' => '',
     'label' => null,
+    'objectFit' => 'cover', // 'cover' ou 'contain'
+    'height' => 'h-40',
+    'allowUrlInput' => false,
 ])
 
 <div
@@ -62,10 +65,10 @@
         style="display: none;"
         class="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden"
     >
-        <div class="relative h-40 bg-slate-900 flex items-center justify-center overflow-hidden">
-            <img :src="imageUrl" alt="Preview" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-            <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-white text-xs">
+        <div class="relative {{ $height }} bg-slate-900/90 flex items-center justify-center overflow-hidden p-2">
+            <img :src="imageUrl" alt="Preview" class="max-w-full max-h-full {{ $objectFit === 'contain' ? 'object-contain' : 'w-full h-full object-cover' }}">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-white text-xs pointer-events-none">
                 <span class="font-semibold truncate" x-text="fileName || 'Visuel sélectionné'"></span>
             </div>
         </div>
@@ -74,7 +77,7 @@
             <button
                 type="button"
                 @click="openPicker(false)"
-                class="flex-1 btn btn-sm btn-secondary justify-center"
+                class="flex-1 btn btn-sm btn-secondary justify-center cursor-pointer"
             >
                 <i data-lucide="replace" class="w-3.5 h-3.5"></i>
                 <span>Changer</span>
@@ -84,7 +87,7 @@
                 type="button"
                 x-show="mediaId"
                 @click="openPicker(true)"
-                class="btn btn-sm btn-secondary text-amber-700 hover:text-amber-800 justify-center"
+                class="btn btn-sm btn-secondary text-amber-700 hover:text-amber-800 justify-center cursor-pointer"
                 title="Recadrer ce média"
             >
                 <i data-lucide="crop" class="w-3.5 h-3.5"></i>
@@ -101,4 +104,29 @@
             </button>
         </div>
     </div>
+
+    @if($allowUrlInput)
+        <div class="space-y-1">
+            <label class="admin-label text-[11px] text-slate-500">Ou renseigner l'URL directe</label>
+            <div class="relative">
+                <input
+                    type="text"
+                    x-model="fieldValue"
+                    @input="imageUrl = fieldValue; if(valueMode === 'url') fileName = (fieldValue ? fieldValue.split('/').pop() : '')"
+                    placeholder="https://... ou /images/..."
+                    class="admin-input font-mono text-xs pr-8"
+                >
+                <template x-if="fieldValue">
+                    <button
+                        type="button"
+                        @click="clearMedia()"
+                        class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 cursor-pointer"
+                        title="Effacer l'URL"
+                    >
+                        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    </button>
+                </template>
+            </div>
+        </div>
+    @endif
 </div>

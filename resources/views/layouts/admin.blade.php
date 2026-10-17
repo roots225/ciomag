@@ -7,6 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Studio Rédaction') — CIOMAG Admin</title>
 
+    @if(!empty($siteGeneral['favicon_url']))
+        <link rel="icon" href="{{ $siteGeneral['favicon_url'] }}">
+        <link rel="apple-touch-icon" href="{{ $siteGeneral['favicon_url'] }}">
+    @endif
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Cropper.js pour le composant universel de recadrage de médias -->
@@ -33,11 +38,14 @@
         class="w-64 bg-slate-950 text-slate-300 flex flex-col shrink-0 h-screen overflow-hidden border-r border-slate-800">
         <!-- En-tête fixe de la Sidebar -->
         <div class="p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
-            <a href="{{ route('admin.dashboard') }}" class="flex items-baseline gap-1">
-                <span class="text-2xl font-black tracking-tighter text-white">CIO</span>
-                <span class="text-2xl font-light tracking-tight text-red-500">MAG</span>
-                <span
-                    class="ml-1.5 px-1.5 py-0.5 text-[10px] font-bold uppercase bg-red-700 text-white rounded-xs">CMS</span>
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
+                @if(!empty($siteGeneral['logo_url']))
+                    <img src="{{ $siteGeneral['logo_url'] }}" alt="{{ $siteGeneral['site_name'] ?? 'Yakou CMS' }}" class="h-7 w-auto max-w-[140px] object-contain brightness-0 invert">
+                @else
+                    <span class="text-2xl font-black tracking-tighter text-white">Yakou</span>
+                    <span
+                        class="ml-1.5 px-1.5 py-0.5 text-[10px] font-bold uppercase bg-red-700 text-white rounded-xs">CMS</span>
+                @endif
             </a>
         </div>
 

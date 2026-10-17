@@ -64,6 +64,77 @@
                 <textarea name="footer_about" rows="2" class="admin-input">{{ $general['footer_about'] ?? '' }}</textarea>
             </div>
 
+            <!-- Identité Visuelle : Logo & Favicon -->
+            <div class="pt-4 border-t border-slate-100 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-md bg-red-50 text-red-700 flex items-center justify-center">
+                                <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                            </span>
+                            <span>Identité Visuelle & Marque (Logo & Favicon)</span>
+                        </h3>
+                        <p class="text-[11px] text-slate-500 mt-0.5">
+                            Personnalisez le logo du magazine pour l'en-tête (masthead), le pied de page et le favicon d'onglet de navigateur.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- 1. Logo Officiel -->
+                    <div class="p-4 rounded-xl border border-slate-200/90 bg-slate-50/50 space-y-3 shadow-2xs">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <label class="admin-label font-bold text-slate-900">Logo du Magazine</label>
+                                <p class="text-[11px] text-slate-500">Affiché dans le header (masthead) et le footer du magazine. Format PNG, SVG ou WebP transparent recommandé.</p>
+                            </div>
+                            @if(!empty($general['logo_url']))
+                                <span class="admin-badge badge-success text-[10px]">Configuré</span>
+                            @else
+                                <span class="admin-badge badge-neutral text-[10px]">Texte par défaut</span>
+                            @endif
+                        </div>
+
+                        <x-media-picker
+                            name="logo_url"
+                            valueMode="url"
+                            :value="old('logo_url', $general['logo_url'] ?? '')"
+                            :previewUrl="old('logo_url', $general['logo_url'] ?? '')"
+                            previewName="Logo du Magazine"
+                            objectFit="contain"
+                            height="h-28"
+                            :allowUrlInput="true"
+                        />
+                    </div>
+
+                    <!-- 2. Favicon du Site -->
+                    <div class="p-4 rounded-xl border border-slate-200/90 bg-slate-50/50 space-y-3 shadow-2xs">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <label class="admin-label font-bold text-slate-900">Favicon du Navigateur</label>
+                                <p class="text-[11px] text-slate-500">Icône d'onglet pour les visiteurs (format ICO, PNG carré 32x32 / 64x64, ou SVG).</p>
+                            </div>
+                            @if(!empty($general['favicon_url']))
+                                <span class="admin-badge badge-success text-[10px]">Configuré</span>
+                            @else
+                                <span class="admin-badge badge-neutral text-[10px]">Non défini</span>
+                            @endif
+                        </div>
+
+                        <x-media-picker
+                            name="favicon_url"
+                            valueMode="url"
+                            :value="old('favicon_url', $general['favicon_url'] ?? '')"
+                            :previewUrl="old('favicon_url', $general['favicon_url'] ?? '')"
+                            previewName="Favicon"
+                            objectFit="contain"
+                            height="h-28"
+                            :allowUrlInput="true"
+                        />
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-sm btn-primary">
                 <i data-lucide="save" class="w-4 h-4"></i>
                 <span>Enregistrer la configuration</span>

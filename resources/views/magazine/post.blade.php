@@ -18,16 +18,16 @@
 
     <!-- Fil d'Ariane (basé sur la catégorie principale is_primary) -->
     <nav class="text-xs text-slate-500 mb-6 flex flex-wrap items-center gap-2">
-        <a href="{{ route('magazine.home') }}" class="hover:text-red-700">Accueil</a>
+        <a href="{{ route('magazine.home') }}" class="hover:text-ciomag-teal">Accueil</a>
         <span>/</span>
         @if($primaryCategory)
             @if($primaryCategory->parent)
-                <a href="{{ route('magazine.category', $primaryCategory->parent->slug) }}" class="hover:text-red-700">
+                <a href="{{ route('magazine.category', $primaryCategory->parent->slug) }}" class="hover:text-ciomag-teal">
                     {{ $primaryCategory->parent->name }}
                 </a>
                 <span>/</span>
             @endif
-            <a href="{{ route('magazine.category', $primaryCategory->slug) }}" class="font-semibold text-red-700 hover:underline">
+            <a href="{{ route('magazine.category', $primaryCategory->slug) }}" class="font-bold text-ciomag-teal hover:underline">
                 {{ $primaryCategory->name }}
             </a>
             <span>/</span>
@@ -41,7 +41,7 @@
             @foreach($post->categories as $cat)
                 <a
                     href="{{ route('magazine.category', $cat->slug) }}"
-                    class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-xs {{ $cat->pivot->is_primary ? 'bg-red-700 text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300' }}"
+                    class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-xs {{ $cat->pivot->is_primary ? 'bg-ciomag-pine text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300' }}"
                 >
                     {{ $cat->name }}
                 </a>
@@ -53,7 +53,7 @@
                 </span>
             @endif
             @if($post->is_premium)
-                <span class="px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider bg-slate-950 text-amber-400 rounded-xs inline-flex items-center gap-1.5 border border-amber-400/40">
+                <span class="px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider bg-ciomag-pine text-ciomag-amber rounded-xs inline-flex items-center gap-1.5 border border-ciomag-amber/40">
                     <i data-lucide="crown" class="w-3.5 h-3.5"></i>
                     <span>Exclusif Abonnés Premium</span>
                 </span>
@@ -76,12 +76,12 @@
                 @if($post->author?->avatar_url)
                     <img src="{{ $post->author->avatar_url }}" alt="{{ $post->author->display_name }}" class="w-11 h-11 rounded-full object-cover border border-slate-200">
                 @else
-                    <div class="w-11 h-11 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm">
+                    <div class="w-11 h-11 rounded-full bg-ciomag-pine text-white flex items-center justify-center font-bold text-sm">
                         {{ $post->author?->initials() }}
                     </div>
                 @endif
                 <div>
-                    <a href="{{ route('magazine.author', $post->author->username) }}" class="font-bold text-slate-900 hover:text-red-700">
+                    <a href="{{ route('magazine.author', $post->author->username) }}" class="font-bold text-slate-900 hover:text-ciomag-teal">
                         {{ $post->author->display_name }}
                     </a>
                     <p class="text-xs text-slate-500">
@@ -135,8 +135,8 @@
     <div class="article-content bg-white p-6 sm:p-10 rounded-2xl border border-slate-200/80 shadow-2xs relative overflow-hidden">
         @if($canReadFullArticle)
             @if($post->is_premium)
-                <div class="mb-6 px-4 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold flex items-center gap-2">
-                    <i data-lucide="unlock" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                <div class="mb-6 px-4 py-2.5 rounded-xl bg-ciomag-amber-light border border-ciomag-amber/30 text-amber-900 text-xs font-semibold flex items-center gap-2">
+                    <i data-lucide="unlock" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                     <span>Édition Abonné déverrouillée — Merci pour votre soutien à la rédaction indépendante de CIOMAG.</span>
                 </div>
             @endif
@@ -149,10 +149,10 @@
             </div>
 
             <!-- Paywall CIOMAG Premium -->
-            <div id="premium-paywall" class="relative z-20 mt-2 bg-slate-950 text-white rounded-2xl p-8 sm:p-10 border border-amber-500/30 shadow-xl">
+            <div id="premium-paywall" class="relative z-20 mt-2 bg-[#182322] text-white rounded-2xl p-8 sm:p-10 border border-ciomag-amber/40 shadow-xl">
                 <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div class="space-y-3 max-w-xl">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ciomag-amber text-slate-950 text-xs font-extrabold uppercase tracking-wider">
                             <i data-lucide="crown" class="w-3.5 h-3.5"></i>
                             <span>Article Exclusif Abonnés</span>
                         </span>
@@ -160,30 +160,30 @@
                             La suite de cette enquête est réservée aux abonnés CIOMAG Premium
                         </h3>
                         <p class="text-sm text-slate-300 leading-relaxed">
-                            Débloquez immédiatement cet article, nos baromètres sectoriels DSI/RSSI, nos livres blancs et les éditions bimestrielles du magazine à partir de <strong class="text-amber-400">14,90 € / mois</strong>.
+                            Débloquez immédiatement cet article, nos baromètres sectoriels DSI/RSSI, nos livres blancs et les éditions bimestrielles du magazine à partir de <strong class="text-ciomag-amber">14,90 € / mois</strong>.
                         </p>
                         <ul class="pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
                             <li class="flex items-center gap-2">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                                 <span>Accès illimité aux articles exclusifs</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                                 <span>Magazines bimestriels PDF HD</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                                 <span>Études & Benchmarks Budgets IT</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-ciomag-amber shrink-0"></i>
                                 <span>Invitations VIP aux Assises CIOMAG</span>
                             </li>
                         </ul>
                     </div>
 
                     <div class="w-full md:w-auto flex flex-col gap-3 shrink-0">
-                        <a href="{{ route('magazine.subscriptions.index') }}" class="px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 text-sm font-black uppercase tracking-wider rounded-xl text-center inline-flex items-center justify-center gap-2 shadow-lg transition">
+                        <a href="{{ route('magazine.subscriptions.index') }}" class="px-6 py-3.5 bg-ciomag-amber hover:bg-ciomag-amber-hover text-slate-950 text-sm font-black uppercase tracking-wider rounded-xl text-center inline-flex items-center justify-center gap-2 shadow-lg transition">
                             <i data-lucide="sparkles" class="w-4 h-4"></i>
                             <span>S'abonner maintenant</span>
                         </a>
@@ -205,7 +205,7 @@
                 @foreach($post->tags as $tag)
                     <a
                         href="{{ route('magazine.tag', $tag->slug) }}"
-                        class="px-3 py-1 text-xs font-semibold bg-slate-100 hover:bg-red-700 hover:text-white text-slate-700 rounded-full transition"
+                        class="px-3 py-1 text-xs font-semibold bg-slate-100 hover:bg-ciomag-teal hover:text-white text-slate-700 rounded-full transition"
                     >
                         #{{ $tag->name }}
                     </a>
@@ -215,14 +215,14 @@
     </div>
 
     <!-- Encadré Auteur -->
-    <section class="mt-10 bg-slate-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5">
+    <section class="mt-10 bg-[#182322] border border-ciomag-teal/30 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5">
         @if($post->author?->avatar_url)
-            <img src="{{ $post->author->avatar_url }}" alt="{{ $post->author->display_name }}" class="w-16 h-16 rounded-full object-cover shrink-0 border-2 border-red-600">
+            <img src="{{ $post->author->avatar_url }}" alt="{{ $post->author->display_name }}" class="w-16 h-16 rounded-full object-cover shrink-0 border-2 border-ciomag-amber">
         @endif
         <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
-                <span class="text-xs uppercase tracking-wider font-bold text-red-400">À propos de l'auteur</span>
-                <span class="text-slate-600">•</span>
+                <span class="text-xs uppercase tracking-wider font-bold text-ciomag-amber">À propos de l'auteur</span>
+                <span class="text-slate-500">•</span>
                 <a href="{{ route('magazine.author', $post->author->username) }}" class="text-lg font-bold text-white hover:underline">
                     {{ $post->author->display_name }}
                 </a>
@@ -231,7 +231,7 @@
                 {{ $post->author->bio ?? 'Journaliste et analyste au sein de la rédaction de CIOMAG.' }}
             </p>
             @if(!empty($post->author->social_links))
-                <div class="pt-1 flex items-center gap-4 text-xs text-amber-400 font-semibold">
+                <div class="pt-1 flex items-center gap-4 text-xs text-ciomag-amber font-semibold">
                     @foreach($post->author->social_links as $network => $link)
                         <a href="{{ $link }}" target="_blank" rel="noopener" class="hover:underline capitalize">
                             {{ $network }} ↗
@@ -245,7 +245,7 @@
     <!-- Articles Connexes -->
     @if($relatedPosts->isNotEmpty())
         <section class="mt-12">
-            <h2 class="text-lg font-black uppercase tracking-wider text-slate-900 border-b-2 border-slate-900 pb-2 mb-6">
+            <h2 class="text-lg font-black uppercase tracking-wider text-slate-900 border-b-2 border-ciomag-teal pb-2 mb-6">
                 Sur le même sujet
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -257,7 +257,7 @@
                             </a>
                         @endif
                         <div class="p-4 flex-1 flex flex-col justify-between">
-                            <h3 class="text-sm font-bold text-slate-900 hover:text-red-700 leading-snug">
+                            <h3 class="text-sm font-bold text-slate-900 hover:text-ciomag-teal leading-snug">
                                 <a href="{{ route('magazine.post', $rel->slug) }}">{{ $rel->title }}</a>
                             </h3>
                             <div class="mt-3 text-[11px] text-slate-400">
@@ -301,7 +301,7 @@
                         <button
                             type="button"
                             @click="replyToId = '{{ $comment->id }}'; replyToName = '{{ addslashes($comment->authorName()) }}'; document.getElementById('comment-form').scrollIntoView({behavior: 'smooth'})"
-                            class="text-xs font-semibold text-red-700 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                            class="text-xs font-semibold text-ciomag-teal hover:underline inline-flex items-center gap-1 cursor-pointer"
                         >
                             <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
                             <span>Répondre</span>
@@ -317,7 +317,7 @@
                                         <div class="flex items-center gap-2">
                                             <span class="font-bold text-xs text-slate-900">{{ $reply->authorName() }}</span>
                                             @if($reply->user?->role)
-                                                <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-red-700 text-white rounded-xs">
+                                                <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-ciomag-teal text-white rounded-xs">
                                                     {{ $reply->user->role->name }}
                                                 </span>
                                             @endif
@@ -348,12 +348,12 @@
             <div id="comment-form" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <i data-lucide="message-square-plus" class="w-4 h-4 text-red-700"></i>
+                        <i data-lucide="message-square-plus" class="w-4 h-4 text-ciomag-teal"></i>
                         <span>Contribuer à la discussion</span>
                     </h3>
                     <div x-show="replyToId" x-cloak class="flex items-center gap-2 text-xs bg-amber-50 text-amber-800 px-3 py-1 rounded-full">
                         <span>En réponse à <strong x-text="replyToName"></strong></span>
-                        <button type="button" @click="replyToId = null; replyToName = ''" class="font-bold hover:text-red-700">
+                        <button type="button" @click="replyToId = null; replyToName = ''" class="font-bold hover:text-ciomag-teal">
                             <i data-lucide="x" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
@@ -367,15 +367,15 @@
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Votre nom & fonction *</label>
-                                <input type="text" name="guest_name" value="{{ old('guest_name') }}" required placeholder="Ex: Jean Koné (DSI)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-red-700">
+                                <input type="text" name="guest_name" value="{{ old('guest_name') }}" required placeholder="Ex: Jean Koné (DSI)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Email professionnel *</label>
-                                <input type="email" name="guest_email" value="{{ old('guest_email') }}" required placeholder="nom@entreprise.com" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-red-700">
+                                <input type="email" name="guest_email" value="{{ old('guest_email') }}" required placeholder="nom@entreprise.com" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Site web / Organisation</label>
-                                <input type="url" name="guest_website" value="{{ old('guest_website') }}" placeholder="https://..." class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-red-700">
+                                <input type="url" name="guest_website" value="{{ old('guest_website') }}" placeholder="https://..." class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal">
                             </div>
                         </div>
                     @else
@@ -386,12 +386,12 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Votre analyse ou réaction *</label>
-                        <textarea name="content" rows="4" required placeholder="Partagez votre retour d'expérience avec la communauté CIOMAG..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-red-700">{{ old('content') }}</textarea>
+                        <textarea name="content" rows="4" required placeholder="Partagez votre retour d'expérience avec la communauté CIOMAG..." class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-ciomag-teal focus:ring-1 focus:ring-ciomag-teal">{{ old('content') }}</textarea>
                     </div>
 
                     <div class="flex items-center justify-between">
                         <span class="text-xs text-slate-400">Contrainte d'intégrité : utilisateur identifié ou couple nom/email valide requis.</span>
-                        <button type="submit" class="px-5 py-2.5 bg-red-700 hover:bg-red-800 text-white text-sm font-bold rounded-lg transition cursor-pointer">
+                        <button type="submit" class="px-5 py-2.5 bg-ciomag-teal hover:bg-ciomag-pine text-white text-sm font-bold rounded-lg transition cursor-pointer">
                             Publier le commentaire
                         </button>
                     </div>

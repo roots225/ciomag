@@ -34,6 +34,8 @@ class SettingRedirectController extends Controller
             'edition' => ['nullable', 'string', 'max:150'],
             'contact_email' => ['nullable', 'email', 'max:150'],
             'footer_about' => ['nullable', 'string', 'max:1000'],
+            'logo_url' => ['nullable', 'string', 'max:1000'],
+            'favicon_url' => ['nullable', 'string', 'max:1000'],
             'default_meta_title' => ['nullable', 'string', 'max:255'],
             'default_meta_description' => ['nullable', 'string', 'max:500'],
         ]);
@@ -47,6 +49,8 @@ class SettingRedirectController extends Controller
                     'edition' => $validated['edition'] ?? '',
                     'contact_email' => $validated['contact_email'] ?? '',
                     'footer_about' => $validated['footer_about'] ?? '',
+                    'logo_url' => $validated['logo_url'] ?? '',
+                    'favicon_url' => $validated['favicon_url'] ?? '',
                 ],
                 'description' => 'Paramètres généraux d\'identité du magazine',
                 'updated_by' => $request->user()->id,
