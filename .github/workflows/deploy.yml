@@ -1,0 +1,106 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      # - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'production' || 'development' }}
+
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+
+      - name: 🔑 Configuration de la clé SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: 🌐 Ajouter le serveur aux Known Hosts
+        run: |
+          mkdir -p ~/.ssh/
+          ssh-keyscan -H -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🚀 Déploiement vers le VPS avec rsync updated
+        run: |
+          rsync -avz --delete \
+            -e "ssh -p ${{ secrets.VPS_PORT }}" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_TARGET_DIR }}
+
+      - name: 🔄 Redémarrage de l'application (Docker Compose)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ${{ secrets.VPS_TARGET_DIR }}
+
+            cat << 'EOF' > .env
+            APP_NAME=${{ vars.APP_NAME }}
+            APP_ENV=${{ vars.APP_ENV }}
+            APP_KEY=${{ vars.APP_KEY }}
+            APP_DEBUG=${{ vars.APP_DEBUG }}
+
+            APP_PORT=${{ vars.APP_PORT }}
+
+            APP_URL=${{ vars.APP_URL }}
+
+            APP_LOCALE=${{ vars.APP_LOCALE }}
+            APP_FALLBACK_LOCALE=${{ vars.APP_FALLBACK_LOCALE }}
+            APP_FAKER_LOCALE=${{ vars.APP_FAKER_LOCALE }}
+
+            LOG_CHANNEL=daily
+            LOG_STACK=daily
+            LOG_DEPRECATIONS_CHANNEL=null
+            LOG_LEVEL=debug
+
+            DB_CONNECTION=${{ vars.DB_CONNECTION }}
+            DB_HOST=${{ vars.DB_HOST }}
+            DB_PORT=${{ vars.DB_PORT }}
+            DB_DATABASE=${{ vars.DB_DATABASE }}
+            DB_USERNAME=${{ vars.DB_USERNAME }}
+            DB_PASSWORD=${{ vars.DB_PASSWORD }}
+
+            SESSION_DRIVER=file
+            SESSION_LIFETIME=120
+            SESSION_ENCRYPT=false
+            SESSION_PATH=/
+            SESSION_DOMAIN=${{ vars.SESSION_DOMAIN }}
+            SANCTUM_STATEFUL_DOMAINS=${{ vars.SANCTUM_STATEFUL_DOMAINS }}
+
+            BROADCAST_CONNECTION=log
+            FILESYSTEM_DISK=local
+            QUEUE_CONNECTION=database
+
+            CACHE_STORE=database
+            CACHE_PREFIX=
+
+            MEMCACHED_HOST=127.0.0.1
+
+            REDIS_CLIENT=phpredis
+            REDIS_HOST=redis
+            REDIS_PASSWORD=null
+            REDIS_PORT=6379
+
+            MAIL_MAILER=${{ vars.MAIL_HOST }}
+            MAIL_HOST=${{ vars.MAIL_HOST }}
+            MAIL_PORT=${{ vars.MAIL_PORT }}
+            MAIL_USERNAME=${{ vars.MAIL_USERNAME }}
+            MAIL_PASSWORD=${{ vars.MAIL_PASSWORD }}
+            MAIL_ENCRYPTION=${{ vars.MAIL_ENCRYPTION }}
+            MAIL_FROM_ADDRESS=${{ vars.MAIL_FROM_ADDRESS }}
+            MAIL_FROM_NAME=${{ vars.MAIL_FROM_NAME }}
+
+            VITE_APP_NAME="${APP_NAME}"
+            EOF
+
+            docker compose down && docker compose up -d --build && ./start.sh
+            docker image prune -f

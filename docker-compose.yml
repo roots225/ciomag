@@ -40,8 +40,8 @@ services:
       MYSQL_USER: ${DB_USERNAME:-laravel}
       MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
-    ports:
-      - "${FORWARD_DB_PORT:-3306}:3306"
+    # ports:
+    #     - "${FORWARD_DB_PORT:-3306}:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
@@ -56,8 +56,8 @@ services:
     image: redis:7-alpine
     container_name: ciomag-redis
     restart: unless-stopped
-    ports:
-      - "${FORWARD_REDIS_PORT:-6379}:6379"
+    # ports:
+    #   - "${FORWARD_REDIS_PORT:-6379}:6379"
     volumes:
       - redis-data:/data
     healthcheck:
@@ -75,8 +75,8 @@ services:
     volumes:
       - ./:/var/www/html
     command: sh -c "npm install && npm run build"
-    ports:
-      - "${VITE_PORT:-5173}:5173"
+    # ports:
+    #   - "${VITE_PORT:-5173}:5173"
     networks:
       - ciomag-network
 
