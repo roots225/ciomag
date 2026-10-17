@@ -1,0 +1,89 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ciomag-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ciomag-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: ciomag-nginx
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - ciomag-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: ciomag-mysql
+    restart: unless-stopped
+    command: --log-bin-trust-function-creators=1
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-ciomag}
+      MYSQL_USER: ${DB_USERNAME:-laravel}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+    ports:
+      - "${FORWARD_DB_PORT:-3306}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_ROOT_PASSWORD:-rootsecret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ciomag-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ciomag-redis
+    restart: unless-stopped
+    ports:
+      - "${FORWARD_REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ciomag-network
+
+  node:
+    image: node:22-alpine
+    container_name: ciomag-node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: sh -c "npm install && npm run build"
+    ports:
+      - "${VITE_PORT:-5173}:5173"
+    networks:
+      - ciomag-network
+
+networks:
+  ciomag-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
