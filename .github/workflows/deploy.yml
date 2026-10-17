@@ -102,5 +102,5 @@ jobs:
             VITE_APP_NAME="${APP_NAME}"
             EOF
 
-            docker compose down && docker compose up -d --build
+            docker compose down && docker compose up -d --build && ./start.sh
             docker image prune -f
