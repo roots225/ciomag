@@ -49,6 +49,8 @@ jobs:
             APP_KEY=${{ vars.APP_KEY }}
             APP_DEBUG=${{ vars.APP_DEBUG }}
 
+            APP_PORT=${{ vars.APP_PORT }}
+
             APP_URL=${{ vars.APP_URL }}
 
             APP_LOCALE=${{ vars.APP_LOCALE }}
