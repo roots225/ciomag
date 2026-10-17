@@ -1,58 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Refonte de CIO MAG — Plateforme Média & Événements
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bienvenue sur le dépôt du projet de **refonte de la plateforme CIO MAG** (Le Magazine des Dirigeants IT & de la Transformation Digitale).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🌐 Démonstration en ligne
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Vous pouvez découvrir et tester dès maintenant cette nouvelle version fonctionnelle à l'adresse suivante :  
+👉 **[https://ciomag.quizzpro.net](https://ciomag.quizzpro.net)**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+### ✨ Présentation de la nouvelle version
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Pensée pour moderniser l'expérience de vos lecteurs et simplifier le travail de votre rédaction, cette solution tout-en-un intègre nativement de nombreuses fonctionnalités :
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Gestion complète des événements et des participants** (inscriptions, billetterie et suivi pour vos forums, ATDA, webinaires, etc.)
+- **Boutique en ligne intégrée** pour la vente de vos parutions et contenus numériques
+- **Système de gestion des abonnements** souple et automatisé
+- **Publication et diffusion automatiques** de vos nouveaux articles sur vos réseaux sociaux
+- **Interface moderne, fluide, responsive et optimisée pour le référencement (SEO)**
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+> **Mise en production rapide :** La plateforme étant déjà développée et opérationnelle, sa mise en production peut se faire très rapidement, avec une reprise fluide de vos contenus existants.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 🛠️ Stack Technique
 
-```bash
-composer require laravel/boost --dev
+- **Backend :** [Laravel 11](https://laravel.com) (PHP 8.3)
+- **Frontend :** Tailwind CSS, Alpine.js, Vite
+- **Données & Cache :** MySQL 8.0, Redis
+- **Infrastructure :** Docker, Nginx, CI/CD GitHub Actions
 
-php artisan boost:install
-```
+---
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 💻 Installation & Démarrage local (Docker)
 
-## Contributing
+1. **Cloner le projet :**
+   ```bash
+   git clone <repo-url>
+   cd ciomag
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Créer le fichier d'environnement :**
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+3. **Lancer les conteneurs Docker :**
+   ```bash
+   ./start.sh
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Accès à l'application :**
+   - Site web : [http://localhost:8000](http://localhost:8000)
