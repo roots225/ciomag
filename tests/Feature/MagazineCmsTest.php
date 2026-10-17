@@ -44,6 +44,21 @@ class MagazineCmsTest extends TestCase
         $response->assertSee('CIOMAG');
         $response->assertSee('IA Générative : Comment les DSI passent de l\'expérimentation');
         $response->assertSee('Intelligence Artificielle');
+        $response->assertSee('ALERTE INFOS');
+        $response->assertSee('text-ciomag-amber border-ciomag-amber', false);
+    }
+
+    public function test_navigation_menu_indicates_active_page_for_categories_and_sections(): void
+    {
+        $catResponse = $this->get('/category/intelligence-artificielle');
+        $catResponse->assertStatus(200);
+        $catResponse->assertSee('Intelligence Artificielle');
+        $catResponse->assertSee('text-ciomag-amber border-ciomag-amber', false);
+
+        $shopResponse = $this->get('/shop');
+        $shopResponse->assertStatus(200);
+        $shopResponse->assertSee('Boutique');
+        $shopResponse->assertSee('text-ciomag-amber border-ciomag-amber', false);
     }
 
     public function test_article_page_increments_view_count_and_displays_seo_and_comments(): void

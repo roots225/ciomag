@@ -140,44 +140,79 @@
                 </p>
             </div>
 
-            <!-- Middle: ALERTE INFOS Ticker (Matching Image 2) -->
-            <div class="hidden md:flex items-center gap-3 bg-slate-50 border border-slate-200/80 rounded-lg p-1.5 flex-1 max-w-xl mx-4"
+            <!-- Middle: ALERTE INFOS Ticker (Matching Image 2 with Auto-scroll & Soft Animation) -->
+            <div class="hidden md:flex items-center gap-2.5 bg-ciomag-crimson text-white rounded-md px-3 py-1.5 flex-1 max-w-xl mx-4 shadow-sm"
                 x-data="{
                     current: 0,
-                    items: {{ json_encode($breakingNews->map(fn($p) => ['title' => $p->title, 'url' => route('magazine.post', $p->slug)])) }}
-                }">
-                <!-- Crimson Alerte Infos Badge -->
-                <span
-                    class="shrink-0 px-3 py-1.5 bg-ciomag-crimson text-white text-[11px] font-black uppercase tracking-wider rounded flex items-center gap-1.5 shadow-2xs">
+                    items: {{ json_encode($breakingNews->map(fn($p) => ['title' => $p->title, 'url' => route('magazine.post', $p->slug)])) }},
+                    timer: null,
+                    isPaused: false,
+                    init() {
+                        if (this.items.length > 1) {
+                            this.timer = setInterval(() => {
+                                if (!this.isPaused) {
+                                    this.next();
+                                }
+                            }, 4500);
+                        }
+                    },
+                    next() {
+                        if (this.items.length > 0) {
+                            this.current = (this.current + 1) % this.items.length;
+                        }
+                    },
+                    prev() {
+                        if (this.items.length > 0) {
+                            this.current = (this.current - 1 + this.items.length) % this.items.length;
+                        }
+                    }
+                }"
+                @mouseenter="isPaused = true"
+                @mouseleave="isPaused = false">
+                <!-- Crimson Alerte Infos Badge & Icon -->
+                <span class="shrink-0 text-[11px] font-black uppercase tracking-wider text-white flex items-center gap-1.5">
                     <i data-lucide="zap" class="w-3.5 h-3.5 fill-current text-ciomag-amber"></i>
                     <span>ALERTE INFOS</span>
                 </span>
 
-                <!-- News Title -->
-                <div class="flex-1 overflow-hidden">
-                    <template x-if="items.length > 0">
-                        <a :href="items[current].url" x-text="items[current].title"
-                            class="block text-xs font-bold text-slate-800 hover:text-ciomag-teal truncate transition">
-                        </a>
+                <span class="h-4 w-px bg-white/20 shrink-0"></span>
+
+                <!-- News Title with Soft Slide / Fade Animation -->
+                <div class="flex-1 overflow-hidden relative h-5">
+                    <template x-for="(item, index) in items" :key="index">
+                        <div
+                            x-show="current === index"
+                            x-transition:enter="transition-all ease-out duration-700 transform"
+                            x-transition:enter-start="opacity-0 translate-y-3"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition-all ease-in duration-500 transform absolute inset-0"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 -translate-y-3"
+                            class="w-full flex items-center h-5"
+                        >
+                            <a :href="item.url" x-text="item.title"
+                                class="block text-xs font-semibold text-white hover:text-ciomag-amber truncate transition leading-5 w-full">
+                            </a>
+                        </div>
                     </template>
                     <template x-if="items.length === 0">
-                        <span class="block text-xs font-semibold text-slate-600 truncate">
+                        <span class="block text-xs font-semibold text-white/90 truncate leading-5">
                             Transformation digitale & souveraineté des données en Afrique
                         </span>
                     </template>
                 </div>
 
-                <!-- Prev/Next Controls -->
+                <!-- Prev/Next Controls (Matching red square buttons in Image 2) -->
                 <div class="flex items-center gap-1 shrink-0" x-show="items.length > 1">
-                    <button type="button" @click="current = (current - 1 + items.length) % items.length"
-                        class="p-1 text-slate-400 hover:text-slate-800 hover:bg-slate-200 rounded transition cursor-pointer"
-                        aria-label="Article précédent">
-                        <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                    <button type="button" @click="prev()"
+                        class="w-5 h-5 rounded bg-[#c8102e] hover:bg-[#a00c24] text-white flex items-center justify-center transition cursor-pointer"
+                        aria-label="Alerte précédente">
+                        <i data-lucide="chevron-left" class="w-3 h-3"></i>
                     </button>
-                    <button type="button" @click="current = (current + 1) % items.length"
-                        class="p-1 text-slate-400 hover:text-slate-800 hover:bg-slate-200 rounded transition cursor-pointer"
-                        aria-label="Article suivant">
-                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    <button type="button" @click="next()"
+                        class="w-5 h-5 rounded bg-[#c8102e] hover:bg-[#a00c24] text-white flex items-center justify-center transition cursor-pointer"
+                        aria-label="Alerte suivante">
+                        <i data-lucide="chevron-right" class="w-3 h-3"></i>
                     </button>
                 </div>
             </div>
@@ -203,13 +238,79 @@
     <header class="bg-ciomag-slate sticky top-0 z-40 shadow-md" x-data="{ mobileOpen: false, searchOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-12">
+                @php
+                    $currentUrl = url()->current();
+                    $currentPath = trim(request()->path(), '/');
+
+                    $isItemActive = function ($navItem) use (&$isItemActive, $currentUrl, $currentPath) {
+                        $resolved = $navItem['resolved_url'] ?? '';
+
+                        // 1. Direct URL / Path matching
+                        if (!empty($resolved) && $resolved !== '#') {
+                            $fullItemUrl = str_starts_with($resolved, 'http') ? $resolved : url($resolved);
+                            $itemPath = trim(parse_url($fullItemUrl, PHP_URL_PATH) ?? '', '/');
+
+                            // Exact match
+                            if ($currentUrl === $fullItemUrl || $currentPath === $itemPath) {
+                                return true;
+                            }
+
+                            // Homepage matching ('/' or empty path or label like 'Accueil', 'À la Une')
+                            $isHome = request()->routeIs('magazine.home') || $currentPath === '';
+                            $isHomeItem = $itemPath === '' || $resolved === '/' || in_array(mb_strtolower($navItem['label'] ?? ''), ['accueil', 'home', 'à la une', 'a la une']);
+                            if ($isHome && $isHomeItem) {
+                                return true;
+                            }
+
+                            // Section matching (/shop, /podcasts, /events, /subscriptions)
+                            if ($itemPath !== '' && request()->is($itemPath . '*')) {
+                                return true;
+                            }
+
+                            // Category matching (e.g. /category/slug or when viewing a post belonging to this category)
+                            if (str_starts_with($itemPath, 'category/')) {
+                                $catSlug = str_replace('category/', '', $itemPath);
+                                if (request()->routeIs('magazine.category') && request()->route('slug') === $catSlug) {
+                                    return true;
+                                }
+                                if (request()->routeIs('magazine.post')) {
+                                    $activePost = request()->route('post') ?? (isset($post) ? $post : null);
+                                    if ($activePost) {
+                                        if ($activePost->category?->slug === $catSlug || $activePost->category?->parent?->slug === $catSlug) {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Page matching
+                            if (str_starts_with($itemPath, 'page/')) {
+                                $pageSlug = str_replace('page/', '', $itemPath);
+                                if (request()->routeIs('magazine.page') && request()->route('slug') === $pageSlug) {
+                                    return true;
+                                }
+                            }
+                        }
+
+                        // 2. Child matching (if any child is active, parent is considered active)
+                        if (!empty($navItem['children'])) {
+                            foreach ($navItem['children'] as $child) {
+                                if ($isItemActive($child)) {
+                                    return true;
+                                }
+                            }
+                        }
+
+                        return false;
+                    };
+                @endphp
+
                 <!-- Desktop Navigation Menu -->
                 <nav class="hidden lg:flex items-center space-x-1 flex-1 overflow-x-auto no-scrollbar">
                     @foreach($headerMenu as $item)
                         @php
                             $hasChildren = !empty($item['children']);
-                            $isActive = request()->url() === $item['resolved_url']
-                                || (request()->routeIs('magazine.home') && in_array(strtolower($item['label']), ['accueil', 'home']));
+                            $isActive = $isItemActive($item);
                         @endphp
                         <div class="relative shrink-0" x-data="{ open: false }" @mouseenter="open = true"
                             @mouseleave="open = false">
@@ -235,8 +336,11 @@
                                 <div x-show="open" x-transition.opacity.duration.150ms style="display: none;"
                                     class="absolute left-0 top-full w-60 bg-[#3f504e] border border-white/10 rounded-b-xl shadow-2xl py-2 z-50">
                                     @foreach($item['children'] as $child)
+                                        @php
+                                            $isChildActive = $isItemActive($child);
+                                        @endphp
                                         <a href="{{ $child['resolved_url'] }}" target="{{ $child['target'] ?? '_self' }}"
-                                            class="px-4 py-2.5 text-xs uppercase font-semibold text-slate-100 hover:bg-ciomag-teal hover:text-white flex items-center justify-between transition">
+                                            class="px-4 py-2.5 text-xs uppercase font-semibold flex items-center justify-between transition {{ $isChildActive ? 'bg-ciomag-teal text-ciomag-amber font-bold' : 'text-slate-100 hover:bg-ciomag-teal hover:text-white' }}">
                                             <span>{{ $child['label'] }}</span>
                                             @if(!empty($child['badge_text']))
                                                 <span
@@ -286,9 +390,12 @@
         <!-- Mobile Navigation Drawer -->
         <div x-show="mobileOpen" x-cloak class="lg:hidden bg-[#3f504e] border-t border-white/10 px-4 py-4 space-y-2">
             @foreach($headerMenu as $item)
+                @php
+                    $isActive = $isItemActive($item);
+                @endphp
                 <div>
                     <a href="{{ $item['resolved_url'] }}"
-                        class="block py-2 text-sm font-bold uppercase tracking-wider text-white hover:text-ciomag-amber transition">
+                        class="block py-2 text-sm font-bold uppercase tracking-wider transition {{ $isActive ? 'text-ciomag-amber font-black border-l-2 border-ciomag-amber pl-2' : 'text-white hover:text-ciomag-amber' }}">
                         {{ $item['label'] }}
                         @if(!empty($item['badge_text']))
                             <span class="ml-1 px-1.5 py-0.5 text-[9px] bg-ciomag-amber text-slate-950 rounded-xs font-black">
@@ -299,8 +406,11 @@
                     @if(!empty($item['children']))
                         <div class="pl-4 border-l-2 border-white/20 space-y-1">
                             @foreach($item['children'] as $child)
+                                @php
+                                    $isChildActive = $isItemActive($child);
+                                @endphp
                                 <a href="{{ $child['resolved_url'] }}"
-                                    class="block py-1.5 text-xs text-slate-200 hover:text-ciomag-amber transition">
+                                    class="block py-1.5 text-xs transition {{ $isChildActive ? 'text-ciomag-amber font-bold' : 'text-slate-200 hover:text-ciomag-amber' }}">
                                     {{ $child['label'] }}
                                 </a>
                             @endforeach
