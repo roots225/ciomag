@@ -17,6 +17,7 @@ class User extends Authenticatable
     protected $fillable = [
         'role_id',
         'email',
+        'email_verified_at',
         'username',
         'password_hash',
         'display_name',
@@ -40,6 +41,7 @@ class User extends Authenticatable
     {
         return [
             'status' => UserStatus::class,
+            'email_verified_at' => 'datetime',
             'social_links' => 'array',
             'last_login_at' => 'datetime',
             'password_hash' => 'hashed',

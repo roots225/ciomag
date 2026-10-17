@@ -26,7 +26,7 @@ class UserFactory extends Factory
                 ['name' => 'Auteur', 'permissions' => ['posts.create', 'posts.edit']]
             )->id,
             'email' => fake()->unique()->safeEmail(),
-            'username' => Str::slug($name) . '-' . fake()->unique()->numberBetween(10, 999),
+            'username' => Str::slug($name).'-'.fake()->unique()->numberBetween(10, 999),
             'password_hash' => static::$password ??= Hash::make('password'),
             'display_name' => $name,
             'bio' => fake()->sentence(14),

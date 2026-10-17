@@ -208,7 +208,7 @@ class EventAdminController extends Controller
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        $ticketCode = 'CIO-EVT-' . now()->format('Y') . '-' . strtoupper(Str::random(4));
+        $ticketCode = 'CIO-EVT-'.now()->format('Y').'-'.strtoupper(Str::random(4));
 
         EventRegistration::create([
             'event_id' => $event->id,

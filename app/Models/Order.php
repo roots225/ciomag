@@ -40,6 +40,6 @@ class Order extends Model
 
     public function formattedTotal(): string
     {
-        return number_format((float) $this->total_amount, 2, ',', ' ') . ' ' . ($this->currency === 'EUR' ? '€' : $this->currency);
+        return number_format((float) $this->total_amount, 2, ',', ' ').' '.($this->currency === 'EUR' ? '€' : $this->currency);
     }
 }

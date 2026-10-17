@@ -79,7 +79,7 @@ class ShopController extends Controller
 
         $qty = (int) $validated['quantity'];
         $total = round(((float) $product->price) * $qty, 2);
-        $orderNumber = 'CMD-' . now()->format('Y') . '-' . strtoupper(Str::random(5));
+        $orderNumber = 'CMD-'.now()->format('Y').'-'.strtoupper(Str::random(5));
 
         Order::create([
             'order_number' => $orderNumber,

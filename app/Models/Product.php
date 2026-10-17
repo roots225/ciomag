@@ -61,7 +61,7 @@ class Product extends Model
 
     public function formattedPrice(): string
     {
-        return number_format((float) $this->price, 2, ',', ' ') . ' ' . ($this->currency === 'EUR' ? '€' : $this->currency);
+        return number_format((float) $this->price, 2, ',', ' ').' '.($this->currency === 'EUR' ? '€' : $this->currency);
     }
 
     public function formattedComparePrice(): ?string
@@ -70,6 +70,6 @@ class Product extends Model
             return null;
         }
 
-        return number_format((float) $this->compare_at_price, 2, ',', ' ') . ' ' . ($this->currency === 'EUR' ? '€' : $this->currency);
+        return number_format((float) $this->compare_at_price, 2, ',', ' ').' '.($this->currency === 'EUR' ? '€' : $this->currency);
     }
 }

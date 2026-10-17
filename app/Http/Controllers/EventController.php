@@ -72,7 +72,7 @@ class EventController extends Controller
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        $ticketCode = 'CIO-EVT-' . now()->format('Y') . '-' . strtoupper(Str::random(4));
+        $ticketCode = 'CIO-EVT-'.now()->format('Y').'-'.strtoupper(Str::random(4));
 
         EventRegistration::create([
             'event_id' => $event->id,
@@ -89,7 +89,7 @@ class EventController extends Controller
             'notes' => $validated['notes'] ?? null,
         ]);
 
-        return redirect()->to(route('magazine.events.show', $event->slug) . '#event-registration')
+        return redirect()->to(route('magazine.events.show', $event->slug).'#event-registration')
             ->with('success', "Votre accréditation pour « {$event->title} » est confirmée ! Code Pass : {$ticketCode}");
     }
 }

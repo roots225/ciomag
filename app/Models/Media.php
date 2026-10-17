@@ -71,12 +71,12 @@ class Media extends Model
     {
         $bytes = $this->file_size;
         if ($bytes >= 1048576) {
-            return number_format($bytes / 1048576, 2) . ' Mo';
+            return number_format($bytes / 1048576, 2).' Mo';
         }
         if ($bytes >= 1024) {
-            return number_format($bytes / 1024, 1) . ' Ko';
+            return number_format($bytes / 1024, 1).' Ko';
         }
 
-        return $bytes . ' octets';
+        return $bytes.' octets';
     }
 }

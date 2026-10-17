@@ -70,7 +70,7 @@ class SubscriptionAdminController extends Controller
 
         SubscriptionPlan::create([
             'name' => $validated['name'],
-            'slug' => Str::slug($validated['name']) . '-' . Str::lower(Str::random(3)),
+            'slug' => Str::slug($validated['name']).'-'.Str::lower(Str::random(3)),
             'badge' => $validated['badge'] ?? null,
             'description' => $validated['description'] ?? null,
             'billing_interval' => $validated['billing_interval'],
@@ -115,7 +115,7 @@ class SubscriptionAdminController extends Controller
             'display_order' => (int) ($validated['display_order'] ?? $plan->display_order ?? 0),
         ]);
 
-        return back()->with('success', 'Formule « ' . $plan->name . ' » modifiée avec succès.');
+        return back()->with('success', 'Formule « '.$plan->name.' » modifiée avec succès.');
     }
 
     public function togglePlan(SubscriptionPlan $plan): RedirectResponse
@@ -172,7 +172,7 @@ class SubscriptionAdminController extends Controller
             'amount_paid' => $validated['amount_paid'] ?? $plan->price,
             'currency' => $plan->currency ?? 'EUR',
             'payment_method' => $validated['payment_method'] ?? 'visa',
-            'payment_reference' => 'ADM-' . strtoupper(Str::random(8)),
+            'payment_reference' => 'ADM-'.strtoupper(Str::random(8)),
             'starts_at' => $startsAt,
             'expires_at' => $expiresAt,
         ]);

@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\PostRevision;
 use App\Models\Tag;
 use App\Services\MenuResolverService;
+use App\Services\SocialPublisherService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -188,7 +189,7 @@ class PostController extends Controller
             'title' => $post->title,
             'excerpt' => $post->excerpt,
             'content' => $post->content,
-            'change_summary' => 'Restauration de la révision du ' . $revision->created_at->format('d/m/Y H:i'),
+            'change_summary' => 'Restauration de la révision du '.$revision->created_at->format('d/m/Y H:i'),
         ]);
 
         return redirect()->route('admin.posts.edit', $post)
@@ -273,7 +274,7 @@ class PostController extends Controller
     private function handleSocialPublishing(Post $post, Request $request): void
     {
         $platforms = array_values(array_filter((array) $request->input('social_platforms', [])));
-        $socialService = app(\App\Services\SocialPublisherService::class);
+        $socialService = app(SocialPublisherService::class);
         $config = $socialService->getConfig();
 
         if (empty($platforms) && ! empty($config['auto_publish_on_post']) && $post->status === PostStatus::Published && $post->type === PostType::Post) {

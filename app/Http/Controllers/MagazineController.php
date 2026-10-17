@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CommentStatus;
-use App\Enums\PostStatus;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
@@ -271,7 +270,7 @@ class MagazineController extends Controller
             ? 'Votre commentaire a été publié.'
             : 'Merci ! Votre commentaire a été transmis à la rédaction pour modération.';
 
-        return redirect()->to(route('magazine.post', $post->slug) . '#comments')
+        return redirect()->to(route('magazine.post', $post->slug).'#comments')
             ->with('success', $message);
     }
 }

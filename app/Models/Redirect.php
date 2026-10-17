@@ -31,7 +31,7 @@ class Redirect extends Model
     protected static function booted(): void
     {
         static::saving(function (Redirect $redirect) {
-            $redirect->source_path = '/' . ltrim(trim($redirect->source_path), '/');
+            $redirect->source_path = '/'.ltrim(trim($redirect->source_path), '/');
         });
 
         static::saved(fn () => Cache::forget('cms_active_redirects'));

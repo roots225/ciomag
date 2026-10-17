@@ -53,6 +53,6 @@ class SubscriptionPlan extends Model
 
     public function formattedPrice(): string
     {
-        return number_format((float) $this->price, 2, ',', ' ') . ' ' . ($this->currency === 'EUR' ? '€' : $this->currency);
+        return number_format((float) $this->price, 2, ',', ' ').' '.($this->currency === 'EUR' ? '€' : $this->currency);
     }
 }

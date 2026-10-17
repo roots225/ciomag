@@ -13,6 +13,7 @@ use App\Models\MenuItem;
 use App\Models\Podcast;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\Setting;
 use App\Models\SocialShare;
 use App\Models\SubscriptionPlan;
@@ -21,6 +22,7 @@ use App\Models\UserSubscription;
 use App\Services\MenuResolverService;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use InvalidArgumentException;
 use Tests\TestCase;
 
@@ -64,7 +66,7 @@ class MagazineCmsTest extends TestCase
         $premiumPost = Post::where('is_premium', true)->firstOrFail();
 
         // 1. Un visiteur non abonné voit le Paywall Premium
-        $guestResponse = $this->get('/blog/' . $premiumPost->slug);
+        $guestResponse = $this->get('/blog/'.$premiumPost->slug);
         $guestResponse->assertStatus(200);
         $guestResponse->assertSee('id="premium-paywall"', false);
         $guestResponse->assertSee('La suite de cette enquête est réservée aux abonnés CIOMAG Premium');
@@ -87,7 +89,7 @@ class MagazineCmsTest extends TestCase
         $this->assertTrue($subscriber->canReadPremiumContent());
 
         // 3. L'abonné accède désormais à l'intégralité de l'article sans Paywall
-        $unlockedResponse = $this->actingAs($subscriber)->get('/blog/' . $premiumPost->slug);
+        $unlockedResponse = $this->actingAs($subscriber)->get('/blog/'.$premiumPost->slug);
         $unlockedResponse->assertStatus(200);
         $unlockedResponse->assertDontSee('id="premium-paywall"', false);
     }
@@ -100,11 +102,11 @@ class MagazineCmsTest extends TestCase
 
         $product = Product::where('status', 'published')->firstOrFail();
 
-        $productShow = $this->get('/shop/' . $product->slug);
+        $productShow = $this->get('/shop/'.$product->slug);
         $productShow->assertStatus(200);
         $productShow->assertSee($product->title);
 
-        $orderResponse = $this->post('/shop/' . $product->slug . '/checkout', [
+        $orderResponse = $this->post('/shop/'.$product->slug.'/checkout', [
             'customer_name' => 'Aminata Diop',
             'customer_email' => 'aminata.diop@banque.sn',
             'customer_phone' => '+221 77 000 00 00',
@@ -126,7 +128,7 @@ class MagazineCmsTest extends TestCase
 
         $event = Event::where('status', 'published')->firstOrFail();
 
-        $eventShow = $this->get('/events/' . $event->slug);
+        $eventShow = $this->get('/events/'.$event->slug);
         $eventShow->assertStatus(200);
         $eventShow->assertSee($event->title);
         // Vérifie la présence du compte à rebours, du programme, du comité d'organisation et des partenaires
@@ -135,7 +137,7 @@ class MagazineCmsTest extends TestCase
         $eventShow->assertSee('Comité d\'Organisation', false);
         $eventShow->assertSee('Partenaires & Sponsors Officiels', false);
 
-        $regResponse = $this->post('/events/' . $event->slug . '/register', [
+        $regResponse = $this->post('/events/'.$event->slug.'/register', [
             'full_name' => 'Karim Benali',
             'email' => 'karim.benali@telecom.ma',
             'phone' => '+212 6 00 00 00 00',
@@ -158,12 +160,12 @@ class MagazineCmsTest extends TestCase
         $podcastsIndex->assertStatus(200);
 
         $youtubePodcast = Podcast::where('source_type', 'youtube')->firstOrFail();
-        $showYoutube = $this->get('/podcasts/' . $youtubePodcast->slug);
+        $showYoutube = $this->get('/podcasts/'.$youtubePodcast->slug);
         $showYoutube->assertStatus(200);
         $showYoutube->assertSee($youtubePodcast->youtube_video_id);
 
         $uploadPodcast = Podcast::where('source_type', 'upload')->firstOrFail();
-        $showUpload = $this->get('/podcasts/' . $uploadPodcast->slug);
+        $showUpload = $this->get('/podcasts/'.$uploadPodcast->slug);
         $showUpload->assertStatus(200);
         $showUpload->assertSee('<video', false);
     }
@@ -530,7 +532,7 @@ class MagazineCmsTest extends TestCase
         $usersIndex->assertSee('Déconnexion');
 
         // 2. Création d'un nouvel utilisateur via POST /admin/users
-        $roleEditor = \App\Models\Role::where('slug', 'editor')->firstOrFail();
+        $roleEditor = Role::where('slug', 'editor')->firstOrFail();
         $createRes = $this->actingAs($admin)->post('/admin/users', [
             'display_name' => 'Mariam Diallo',
             'email' => 'mariam.diallo@ciomag.com',
@@ -546,7 +548,7 @@ class MagazineCmsTest extends TestCase
         $this->assertNotNull($newUser);
         $this->assertEquals('Mariam Diallo', $newUser->display_name);
         $this->assertEquals($roleEditor->id, $newUser->role_id);
-        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('secret123', $newUser->password_hash));
+        $this->assertTrue(Hash::check('secret123', $newUser->password_hash));
 
         // 3. Modification de l'utilisateur via PUT /admin/users/{user} (même dialog composant)
         $updateRes = $this->actingAs($admin)->put(route('admin.users.update', $newUser), [
@@ -596,5 +598,113 @@ class MagazineCmsTest extends TestCase
         ]);
         $updateProfile->assertRedirect();
         $this->assertEquals('Gilles Yao Admin', $admin->fresh()->display_name);
+    }
+
+    public function test_admin_menu_builder_renders_with_create_item_dialog(): void
+    {
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $admin = User::factory()->create([
+            'role_id' => $adminRole->id,
+            'status' => 'active',
+        ]);
+
+        $response = $this->actingAs($admin)->get(route('admin.menus.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('createItemModalOpen', false);
+        $response->assertSee('Ajouter un élément au menu', false);
+        $response->assertSee('Arborescence Résolue (menu_tree)', false);
+    }
+
+    public function test_admin_can_update_menu_and_menu_item(): void
+    {
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $admin = User::factory()->create([
+            'role_id' => $adminRole->id,
+            'status' => 'active',
+        ]);
+
+        $menu = Menu::firstOrFail();
+
+        // 1. Mise à jour du menu
+        $updateMenuRes = $this->actingAs($admin)->put(route('admin.menus.update', $menu), [
+            'name' => 'Menu Principal Mis à Jour',
+            'description' => 'Description modifiée du menu',
+        ]);
+        $updateMenuRes->assertRedirect();
+        $this->assertEquals('Menu Principal Mis à Jour', $menu->fresh()->name);
+
+        // 2. Mise à jour d'un élément de menu
+        $item = $menu->items()->firstOrFail();
+        $updateItemRes = $this->actingAs($admin)->putJson(route('admin.menus.items.update', $item), [
+            'label' => 'Libellé Modifié',
+            'type' => 'custom_url',
+            'custom_url' => '/nouveau-lien',
+            'target' => '_blank',
+            'badge_text' => 'VIP',
+            'display_order' => 5,
+        ]);
+        $updateItemRes->assertStatus(200);
+        $updateItemRes->assertJson(['success' => true]);
+
+        $freshItem = $item->fresh();
+        $this->assertEquals('Libellé Modifié', $freshItem->label);
+        $this->assertEquals('/nouveau-lien', $freshItem->custom_url);
+        $this->assertEquals('_blank', $freshItem->target);
+        $this->assertEquals('VIP', $freshItem->badge_text);
+    }
+
+    public function test_admin_can_reparent_and_unparent_menu_item_via_drag_and_drop_api(): void
+    {
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $admin = User::factory()->create([
+            'role_id' => $adminRole->id,
+            'status' => 'active',
+        ]);
+
+        $menu = Menu::firstOrFail();
+
+        // Créer deux éléments racine
+        $itemA = MenuItem::create([
+            'menu_id' => $menu->id,
+            'label' => 'Parent A',
+            'type' => 'custom_url',
+            'custom_url' => '/parent-a',
+            'target' => '_self',
+            'display_order' => 1,
+        ]);
+
+        $itemB = MenuItem::create([
+            'menu_id' => $menu->id,
+            'label' => 'Enfant B',
+            'type' => 'custom_url',
+            'custom_url' => '/enfant-b',
+            'target' => '_self',
+            'display_order' => 2,
+        ]);
+
+        // 1. Glisser-déposer : rattacher B sous A
+        $reparentRes = $this->actingAs($admin)->patchJson(route('admin.menus.items.reparent', $itemB), [
+            'parent_id' => $itemA->id,
+        ]);
+        $reparentRes->assertStatus(200);
+        $reparentRes->assertJson(['success' => true]);
+        $this->assertEquals($itemA->id, $itemB->fresh()->parent_id);
+
+        // 2. Détection de cycle : tenter de rattacher A sous B (son enfant)
+        $cycleRes = $this->actingAs($admin)->patchJson(route('admin.menus.items.reparent', $itemA), [
+            'parent_id' => $itemB->id,
+        ]);
+        $cycleRes->assertStatus(422);
+        $cycleRes->assertJson(['success' => false]);
+        $this->assertNull($itemA->fresh()->parent_id);
+
+        // 3. Glisser-déposer vers la racine : supprimer le parent de B (parent_id = null)
+        $unparentRes = $this->actingAs($admin)->patchJson(route('admin.menus.items.reparent', $itemB), [
+            'parent_id' => null,
+        ]);
+        $unparentRes->assertStatus(200);
+        $unparentRes->assertJson(['success' => true]);
+        $this->assertNull($itemB->fresh()->parent_id);
     }
 }

@@ -269,7 +269,7 @@ return new class extends Migration
         foreach ($triggers as $triggerSql) {
             try {
                 DB::unprepared($triggerSql);
-            } catch (\Throwable) {
+            } catch (Throwable) {
                 // La validation Eloquent (saving) assure également cette contrainte si l'utilisateur MySQL n'a pas le privilège TRIGGER
             }
         }

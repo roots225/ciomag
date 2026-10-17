@@ -76,7 +76,7 @@ class SettingRedirectController extends Controller
             'status_code' => ['required', 'integer', Rule::in([301, 302, 307, 308])],
         ]);
 
-        $sourcePath = '/' . ltrim(trim($validated['source_path']), '/');
+        $sourcePath = '/'.ltrim(trim($validated['source_path']), '/');
 
         Redirect::updateOrCreate(
             ['source_path' => $sourcePath],
@@ -122,7 +122,7 @@ class SettingRedirectController extends Controller
             'email' => $validated['email'],
             'username' => ! empty($validated['username'])
                 ? Str::slug($validated['username'])
-                : Str::slug($validated['display_name']) . '-' . random_int(10, 99),
+                : Str::slug($validated['display_name']).'-'.random_int(10, 99),
             'password_hash' => Hash::make($validated['password']),
             'bio' => $validated['bio'] ?? null,
             'avatar_url' => $validated['avatar_url'] ?? null,

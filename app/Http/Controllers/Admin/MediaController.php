@@ -99,7 +99,7 @@ class MediaController extends Controller
             return response()->json(['message' => 'Données d\'image recadrée invalides.'], 422);
         }
 
-        $relativePath = 'media/' . date('Y/m') . '/crop-' . Str::random(10) . '.jpg';
+        $relativePath = 'media/'.date('Y/m').'/crop-'.Str::random(10).'.jpg';
         Storage::disk('public')->put($relativePath, $binary);
 
         $publicUrl = Storage::disk('public')->url($relativePath);
@@ -137,7 +137,7 @@ class MediaController extends Controller
         $baseName = pathinfo($media->file_name, PATHINFO_FILENAME);
         $newMedia = Media::create([
             'uploader_id' => $request->user()->id,
-            'file_name' => $baseName . '-recadre-' . date('His') . '.jpg',
+            'file_name' => $baseName.'-recadre-'.date('His').'.jpg',
             'file_path' => $relativePath,
             'mime_type' => 'image/jpeg',
             'file_size' => $fileSize,
@@ -214,7 +214,7 @@ class MediaController extends Controller
             ]);
 
             $uploadedFile = $request->file('file');
-            $path = $uploadedFile->store('media/' . date('Y/m'), 'public');
+            $path = $uploadedFile->store('media/'.date('Y/m'), 'public');
 
             $width = null;
             $height = null;

@@ -86,7 +86,7 @@ class Event extends Model
             return 'Gratuit (Sur accréditation)';
         }
 
-        return number_format((float) $this->ticket_price, 2, ',', ' ') . ' ' . ($this->currency === 'EUR' ? '€' : $this->currency);
+        return number_format((float) $this->ticket_price, 2, ',', ' ').' '.($this->currency === 'EUR' ? '€' : $this->currency);
     }
 
     public function locationLabel(): string

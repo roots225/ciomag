@@ -42,7 +42,15 @@ Route::post('/shop/{slug}/checkout', [ShopController::class, 'checkout'])->name(
 
 // Abonnements & Articles Exclusifs Premium
 Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('magazine.subscriptions.index');
+Route::get('/subscriptions/subscribe', [SubscriptionController::class, 'redirectToFirstPlan'])->name('magazine.subscriptions.subscribe.default');
+Route::get('/subscriptions/subscribe/{plan:slug}', [SubscriptionController::class, 'showCheckout'])->name('magazine.subscriptions.subscribe.show');
 Route::post('/subscriptions/subscribe', [SubscriptionController::class, 'subscribe'])->name('magazine.subscriptions.subscribe');
+
+// Processus de souscription par étapes (Step-by-step OTP & Paiement)
+Route::post('/subscriptions/step/send-otp', [SubscriptionController::class, 'sendOtp'])->name('magazine.subscriptions.otp.send');
+Route::post('/subscriptions/step/verify-otp', [SubscriptionController::class, 'verifyOtp'])->name('magazine.subscriptions.otp.verify');
+Route::post('/subscriptions/step/resend-otp', [SubscriptionController::class, 'resendOtp'])->name('magazine.subscriptions.otp.resend');
+Route::post('/subscriptions/step/process-payment', [SubscriptionController::class, 'processPayment'])->name('magazine.subscriptions.payment.process');
 
 // Événements (Compte à rebours, Programme, Comité d'organisation, Partenaires, Inscription)
 Route::get('/events', [EventController::class, 'index'])->name('magazine.events.index');
@@ -149,7 +157,10 @@ Route::prefix('admin')
         // Constructeur de Menus (avec prévisualisation CTE)
         Route::get('menus', [AdminMenuController::class, 'index'])->name('menus.index');
         Route::post('menus', [AdminMenuController::class, 'storeMenu'])->name('menus.store');
+        Route::put('menus/{menu}', [AdminMenuController::class, 'updateMenu'])->name('menus.update');
         Route::post('menus/{menu}/items', [AdminMenuController::class, 'storeItem'])->name('menus.items.store');
+        Route::put('menu-items/{menuItem}', [AdminMenuController::class, 'updateItem'])->name('menus.items.update');
+        Route::patch('menu-items/{menuItem}/reparent', [AdminMenuController::class, 'reparentItem'])->name('menus.items.reparent');
         Route::delete('menu-items/{menuItem}', [AdminMenuController::class, 'destroyItem'])->name('menus.items.destroy');
 
         // Gestion du Profil de l'utilisateur connecté

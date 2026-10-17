@@ -85,12 +85,12 @@
     <button
         type="button"
         @click="open = !open; if(open) { $nextTick(() => { $refs.searchInput?.focus(); if (window.lucide) window.lucide.createIcons(); }); }"
-        class="w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-xl shadow-2xs hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-red-700/20 focus:border-red-700 flex items-center justify-between gap-2 text-left transition cursor-pointer"
+        class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg shadow-2xs hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-red-700/15 focus:border-red-700 flex items-center justify-between gap-2 text-left transition cursor-pointer"
     >
         <span class="truncate flex items-center gap-2" :class="selectedOption ? 'text-slate-900 font-medium' : 'text-slate-400'">
             <span x-text="selectedOption ? selectedOption.label : placeholder" class="truncate"></span>
             <template x-if="selectedOption && selectedOption.sublabel">
-                <span class="text-xs text-slate-400 font-mono truncate" x-text="selectedOption.sublabel"></span>
+                <span class="text-[11px] text-slate-400 font-mono truncate" x-text="selectedOption.sublabel"></span>
             </template>
         </span>
 
@@ -105,16 +105,16 @@
                     <i data-lucide="x" class="w-3.5 h-3.5"></i>
                 </span>
             @endif
-            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180 text-red-700' : ''"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-200" :class="open ? 'rotate-180 text-red-700' : ''"></i>
         </span>
     </button>
 
     <!-- Dropdown Panel -->
     <div
         x-show="open"
-        x-transition.opacity.duration.150ms
+        x-transition.opacity.duration.120ms
         style="display: none;"
-        class="absolute z-50 mt-1.5 w-full min-w-[230px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden"
+        class="absolute z-50 mt-1 w-full min-w-[200px] bg-white border border-slate-200 rounded-lg shadow-lg overflow-hidden"
     >
         @if($searchable)
             <div class="p-2 border-b border-slate-100 bg-slate-50/70">

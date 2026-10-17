@@ -111,7 +111,7 @@ class SocialAdminController extends Controller
                 $request->user()?->id
             );
 
-            return back()->with('success', count($shares) . " publication(s) diffusée(s) pour le podcast « {$podcast->title} ».");
+            return back()->with('success', count($shares)." publication(s) diffusée(s) pour le podcast « {$podcast->title} ».");
         }
 
         $request->validate(['post_id' => ['required', 'uuid', 'exists:posts,id']]);

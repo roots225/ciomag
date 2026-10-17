@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -220,7 +221,7 @@ class Post extends Model
     {
         return ! empty($this->seo_meta['meta_description'])
             ? $this->seo_meta['meta_description']
-            : (string) ($this->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($this->content), 160));
+            : (string) ($this->excerpt ?: Str::limit(strip_tags($this->content), 160));
     }
 
     public function socialShares(): HasMany
@@ -232,9 +233,9 @@ class Post extends Model
     {
         $paragraphs = preg_split('/<\/p>/i', (string) $this->content) ?: [];
         if (count($paragraphs) >= 2) {
-            return implode('</p>', array_slice($paragraphs, 0, 2)) . '</p>';
+            return implode('</p>', array_slice($paragraphs, 0, 2)).'</p>';
         }
 
-        return '<p>' . e(\Illuminate\Support\Str::limit(strip_tags((string) $this->content), 550)) . '</p>';
+        return '<p>'.e(Str::limit(strip_tags((string) $this->content), 550)).'</p>';
     }
 }

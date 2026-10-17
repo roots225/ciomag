@@ -34,7 +34,7 @@ class CommentController extends Controller
 
         $comment->update(['status' => $validated['status']]);
 
-        return back()->with('success', 'Statut du commentaire mis à jour (' . CommentStatus::from($validated['status'])->label() . ').');
+        return back()->with('success', 'Statut du commentaire mis à jour ('.CommentStatus::from($validated['status'])->label().').');
     }
 
     public function destroy(Comment $comment): RedirectResponse

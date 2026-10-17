@@ -13,7 +13,7 @@ class HandleSeoRedirects
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->isMethod('GET')) {
-            $path = '/' . ltrim($request->path(), '/');
+            $path = '/'.ltrim($request->path(), '/');
 
             $redirects = Cache::remember('cms_active_redirects', 3600, function () {
                 return Redirect::query()

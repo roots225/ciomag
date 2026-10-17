@@ -79,12 +79,12 @@ class SocialPublisherService
         }
 
         $config = $this->getConfig();
-        $template = $config['default_template'] ?? "{title} - {url}";
+        $template = $config['default_template'] ?? '{title} - {url}';
 
         $post->loadMissing('tags');
         $hashtags = $post->tags
             ->take(4)
-            ->map(fn ($tag) => '#' . Str::studly(Str::ascii($tag->name)))
+            ->map(fn ($tag) => '#'.Str::studly(Str::ascii($tag->name)))
             ->implode(' ');
 
         if ($hashtags === '') {
@@ -289,7 +289,7 @@ class SocialPublisherService
     private function callTwitterApi(array $cfg, string $message, string $targetUrl): array
     {
         $token = $cfg['access_token'] ?: ($cfg['bearer_token'] ?? '');
-        $tweetText = Str::limit($message, 250) . "\n" . $targetUrl;
+        $tweetText = Str::limit($message, 250)."\n".$targetUrl;
 
         $response = Http::timeout(10)
             ->withToken($token)

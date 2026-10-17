@@ -4,16 +4,18 @@
 @section('header_title', $podcast->exists ? 'Éditer : ' . $podcast->title : 'Ajouter un épisode Podcast / Vidéo')
 
 @section('top_actions')
-    <a href="{{ route('admin.podcasts.index') }}" class="px-3.5 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1.5">
-        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-        <span>Retour aux podcasts</span>
-    </a>
-    @if($podcast->exists)
-        <a href="{{ route('magazine.podcasts.show', $podcast->slug) }}" target="_blank" class="px-3.5 py-2 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold transition flex items-center gap-1.5">
-            <i data-lucide="play" class="w-3.5 h-3.5"></i>
-            <span>Voir le lecteur public</span>
+    <div class="flex items-center gap-2">
+        <a href="{{ route('admin.podcasts.index') }}" class="btn btn-sm btn-secondary">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            <span>Retour aux podcasts</span>
         </a>
-    @endif
+        @if($podcast->exists)
+            <a href="{{ route('magazine.podcasts.show', $podcast->slug) }}" target="_blank" class="btn btn-sm btn-secondary">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-slate-500"></i>
+                <span>Lecteur public</span>
+            </a>
+        @endif
+    </div>
 @endsection
 
 @section('content')
@@ -43,16 +45,14 @@
     {{-- Colonne principale --}}
     <div class="lg:col-span-8 space-y-6">
 
-        {{-- Source Vidéo : YouTube ou Téléversement Direct sur la plateforme --}}
-        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                <div>
-                    <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                        <i data-lucide="tv" class="w-4 h-4 text-red-700"></i>
-                        <span>Source de la Vidéo / Épisode</span>
-                    </h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Importez une vidéo depuis YouTube ou chargez un fichier vidéo directement sur la plateforme CIOMAG.</p>
-                </div>
+        {{-- Source Vidéo : YouTube ou Téléversement Direct --}}
+        <div class="admin-card p-5 sm:p-6 space-y-4">
+            <div class="border-b border-slate-100 pb-3">
+                <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="tv" class="w-4 h-4 text-red-700"></i>
+                    <span>Source de la Vidéo / Épisode</span>
+                </h2>
+                <p class="text-xs text-slate-500 mt-0.5">Importez une vidéo YouTube ou chargez un fichier vidéo direct.</p>
             </div>
 
             <input type="hidden" name="source_type" :value="sourceType">
@@ -61,165 +61,214 @@
                 <button
                     type="button"
                     @click="sourceType = 'youtube'"
-                    :class="sourceType === 'youtube' ? 'border-red-700 bg-red-50/60 ring-2 ring-red-700/20' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'"
+                    :class="sourceType === 'youtube' ? 'border-red-700 bg-red-50/40 ring-1 ring-red-700/20' : 'border-slate-200 bg-white hover:bg-slate-50'"
                     class="p-4 rounded-xl border text-left transition flex items-start gap-3 cursor-pointer"
                 >
-                    <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0">
-                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    <div class="w-9 h-9 rounded-lg bg-red-600 text-white flex items-center justify-center shrink-0">
+                        <i data-lucide="youtube" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <div class="text-xs font-black uppercase tracking-wider text-slate-900">Import YouTube</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Extraction automatique de l'ID vidéo, miniature HD et lecteur intégré.</p>
+                        <div class="text-xs font-semibold text-slate-900">Import YouTube</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Miniature HD, extraction ID et player intégré.</p>
                     </div>
                 </button>
 
                 <button
                     type="button"
                     @click="sourceType = 'upload'"
-                    :class="sourceType === 'upload' ? 'border-indigo-700 bg-indigo-50/60 ring-2 ring-indigo-700/20' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'"
+                    :class="sourceType === 'upload' ? 'border-red-700 bg-red-50/40 ring-1 ring-red-700/20' : 'border-slate-200 bg-white hover:bg-slate-50'"
                     class="p-4 rounded-xl border text-left transition flex items-start gap-3 cursor-pointer"
                 >
-                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
-                        <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                    <div class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0">
+                        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <div class="text-xs font-black uppercase tracking-wider text-slate-900">Chargement Direct Plateforme</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Téléversez un fichier MP4/WebM ou indiquez un flux vidéo hébergé sur CIOMAG.</p>
+                        <div class="text-xs font-semibold text-slate-900">Vidéo Hébergée</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Téléversez un MP4/WebM sur la plateforme CIOMAG.</p>
                     </div>
                 </button>
             </div>
 
             {{-- Panneau YouTube --}}
-            <div x-show="sourceType === 'youtube'" class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">URL de la vidéo YouTube</label>
+            <div x-show="sourceType === 'youtube'" class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+                <label class="admin-label">URL de la vidéo YouTube</label>
                 <input
                     type="text"
                     name="youtube_url"
                     x-model="youtubeUrl"
-                    placeholder="Ex: https://www.youtube.com/watch?v=M7lc1UVf-VE ou https://youtu.be/M7lc1UVf-VE"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm focus:border-red-700 focus:outline-none"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    class="admin-input"
                 >
-                <p class="text-[11px] text-slate-500">L'identifiant YouTube et la miniature haute définition seront extraits automatiquement à l'enregistrement.</p>
+                <p class="admin-help-text">Miniature et ID extraits automatiquement.</p>
             </div>
 
             {{-- Panneau Upload Direct --}}
-            <div x-show="sourceType === 'upload'" style="display: none;" class="p-4 rounded-xl bg-indigo-50/40 border border-indigo-200 space-y-4">
+            <div x-show="sourceType === 'upload'" style="display: none;" class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Téléverser un fichier vidéo (.mp4, .webm, .mov)</label>
+                    <label class="admin-label">Téléverser un fichier vidéo (.mp4, .webm)</label>
                     <input
                         type="file"
                         name="video_file"
                         accept="video/mp4,video/webm,video/quicktime"
-                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs"
+                        class="admin-input text-xs"
                     >
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Ou chemin / URL directe du fichier vidéo sur la plateforme</label>
+                    <label class="admin-label">Ou URL directe du fichier vidéo</label>
                     <input
                         type="text"
                         name="video_file_path"
                         value="{{ old('video_file_path', $podcast->video_file_path) }}"
-                        placeholder="Ex: https://cdn.ciomag.com/podcasts/episode-04.mp4 ou podcasts/videos/ep4.mp4"
-                        class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm"
+                        placeholder="https://cdn.ciomag.com/..."
+                        class="admin-input"
                     >
                 </div>
             </div>
         </div>
 
         {{-- Informations éditoriales de l'épisode --}}
-        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-5">
-            <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+        <div class="admin-card p-5 sm:p-6 space-y-4">
+            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
                 <i data-lucide="mic" class="w-4 h-4 text-red-700"></i>
                 <span>Informations de l'épisode & Invité</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="md:col-span-2">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Titre de l'épisode *</label>
-                    <input type="text" name="title" value="{{ old('title', $podcast->title) }}" required placeholder="Ex: Cybersécurité bancaire : comment parer aux menaces IA ?" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm focus:border-red-700 focus:outline-none">
+                    <label class="admin-label">Titre de l'épisode *</label>
+                    <input type="text" name="title" value="{{ old('title', $podcast->title) }}" required placeholder="Ex: Cybersécurité bancaire : comment parer aux menaces IA ?" class="admin-input font-medium">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Saison #</label>
-                    <input type="number" name="season_number" value="{{ old('season_number', $podcast->season_number ?? 2) }}" min="1" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm">
+                    <label class="admin-label">Saison #</label>
+                    <input type="number" name="season_number" value="{{ old('season_number', $podcast->season_number ?? 2) }}" min="1" class="admin-input">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Épisode #</label>
-                    <input type="number" name="episode_number" value="{{ old('episode_number', $podcast->episode_number ?? 1) }}" min="1" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm">
+                    <label class="admin-label">Épisode #</label>
+                    <input type="number" name="episode_number" value="{{ old('episode_number', $podcast->episode_number ?? 1) }}" min="1" class="admin-input">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Nom de l'invité</label>
-                    <input type="text" name="guest_name" value="{{ old('guest_name', $podcast->guest_name) }}" placeholder="Ex: Dr. Seydou Koné" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm">
+                    <label class="admin-label">Nom de l'invité</label>
+                    <input type="text" name="guest_name" value="{{ old('guest_name', $podcast->guest_name) }}" placeholder="Ex: Dr. Seydou Koné" class="admin-input">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Fonction / Entreprise de l'invité</label>
-                    <input type="text" name="guest_role" value="{{ old('guest_role', $podcast->guest_role) }}" placeholder="Ex: RSSI Groupe Banque Atlantique" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm">
+                    <label class="admin-label">Fonction de l'invité</label>
+                    <input type="text" name="guest_role" value="{{ old('guest_role', $podcast->guest_role) }}" placeholder="Ex: RSSI Groupe Banque Atlantique" class="admin-input">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Journaliste / Animateur</label>
-                    <input type="text" name="host_name" value="{{ old('host_name', $podcast->host_name ?? 'Rédaction CIOMAG') }}" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm">
+                    <label class="admin-label">Animateur</label>
+                    <input type="text" name="host_name" value="{{ old('host_name', $podcast->host_name ?? 'Rédaction CIOMAG') }}" class="admin-input">
                 </div>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Accroche / Résumé court</label>
-                <textarea name="excerpt" rows="2" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm" placeholder="Résumé de l'entretien...">{{ old('excerpt', $podcast->excerpt) }}</textarea>
+                <label class="admin-label">Accroche / Résumé court</label>
+                <textarea name="excerpt" rows="2" class="admin-input" placeholder="Résumé de l'entretien...">{{ old('excerpt', $podcast->excerpt) }}</textarea>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Notes d'émission & Chapitrage (HTML autorisé)</label>
-                <textarea name="description" rows="5" class="w-full rounded-lg border border-slate-300 px-3.5 py-2 text-sm" placeholder="<p>Points abordés dans cet épisode...</p>">{{ old('description', $podcast->description) }}</textarea>
+                <label class="admin-label">Notes d'émission (HTML autorisé)</label>
+                <textarea name="description" rows="5" class="admin-input font-mono text-xs" placeholder="<p>Points abordés...</p>">{{ old('description', $podcast->description) }}</textarea>
             </div>
         </div>
 
-        {{-- Préparation API Multi-Diffusion Vidéo (YouTube, Facebook, Twitter/X, LinkedIn) --}}
-        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-4">
-            <div class="border-b border-slate-100 pb-3">
-                <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                    <i data-lucide="share-2" class="w-4 h-4 text-red-700"></i>
-                    <span>Passerelle API Multi-Diffusion Vidéo & Réseaux Sociaux</span>
-                </h2>
-                <p class="text-xs text-slate-500 mt-0.5">Sélectionnez les réseaux cibles prêts à recevoir ou synchroniser cet épisode via les connecteurs API CIOMAG.</p>
+        {{-- Multi-Diffusion Réseaux Sociaux --}}
+        <div
+            x-data="{
+                targetNames: ['dist_youtube', 'dist_facebook', 'dist_linkedin', 'dist_twitter'],
+                allChecked: false,
+                updateState() {
+                    const inputs = this.targetNames.map(name => document.querySelector(`input[name='${name}']`)).filter(Boolean);
+                    this.allChecked = inputs.length > 0 && inputs.every(i => i.checked);
+                },
+                setAll(checked) {
+                    this.$dispatch('set-checked', {
+                        names: this.targetNames,
+                        checked: checked
+                    });
+                    this.targetNames.forEach(name => {
+                        const input = document.querySelector(`input[name='${name}']`);
+                        if (input) {
+                            input.checked = checked;
+                            input.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                    this.allChecked = checked;
+                }
+            }"
+            x-init="$nextTick(() => updateState())"
+            @change="updateState()"
+            class="admin-card p-5 sm:p-6 space-y-4"
+        >
+            <div class="border-b border-slate-100 pb-3 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="share-2" class="w-4 h-4 text-red-700"></i>
+                        <span>Multi-Diffusion Vidéo Réseaux Sociaux</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Réseaux cibles prêts à synchroniser cet épisode via API.</p>
+                </div>
+
+                {{-- Option dynamique : un seul bouton visible à la fois --}}
+                <div>
+                    <button
+                        type="button"
+                        x-show="!allChecked"
+                        @click="setAll(true)"
+                        class="btn btn-sm btn-secondary inline-flex items-center gap-1.5"
+                        title="Cocher tous les réseaux de diffusion"
+                    >
+                        <i data-lucide="check-check" class="w-3.5 h-3.5 text-primary"></i>
+                        <span>Tout cocher</span>
+                    </button>
+                    <button
+                        type="button"
+                        x-show="allChecked"
+                        style="display: none;"
+                        @click="setAll(false)"
+                        class="btn btn-sm btn-secondary text-slate-600 hover:text-slate-900 inline-flex items-center gap-1.5"
+                        title="Décocher tous les réseaux de diffusion"
+                    >
+                        <i data-lucide="square" class="w-3.5 h-3.5 text-slate-400"></i>
+                        <span>Tout décocher</span>
+                    </button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
                     <x-ui.checkbox
                         name="dist_youtube"
                         value="1"
                         :checked="(bool) ($dist['youtube']['enabled'] ?? true)"
                         label="YouTube Data API v3"
-                        description="Synchronisation chaîne YouTube officielle"
                     />
                 </div>
-                <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
                     <x-ui.checkbox
                         name="dist_facebook"
                         value="1"
                         :checked="(bool) ($dist['facebook']['enabled'] ?? true)"
-                        label="Facebook Graph Video API"
-                        description="Publication native sur la page Facebook"
+                        label="Facebook Video API"
                     />
                 </div>
-                <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
                     <x-ui.checkbox
                         name="dist_linkedin"
                         value="1"
                         :checked="(bool) ($dist['linkedin']['enabled'] ?? true)"
-                        label="LinkedIn Organization Video API"
-                        description="Diffusion sur la page entreprise LinkedIn"
+                        label="LinkedIn Video API"
                     />
                 </div>
-                <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/70">
                     <x-ui.checkbox
                         name="dist_twitter"
                         value="1"
                         :checked="(bool) ($dist['twitter']['enabled'] ?? true)"
-                        label="X / Twitter Media API v2"
-                        description="Post vidéo avec lien lecteur CIOMAG"
+                        label="X / Twitter API v2"
                     />
                 </div>
             </div>
@@ -230,8 +279,8 @@
     {{-- Colonne latérale --}}
     <div class="lg:col-span-4 space-y-6">
 
-        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs space-y-4">
-            <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+        <div class="admin-card p-5 sm:p-6 space-y-4">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2 border-b border-slate-100 pb-2.5">
                 <i data-lucide="settings" class="w-4 h-4 text-red-700"></i>
                 <span>Publication & Rubrique</span>
             </h3>
@@ -257,37 +306,38 @@
 
             <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Durée (MM:SS)</label>
-                    <input type="text" name="duration_label" value="{{ old('duration_label', $podcast->duration_label ?? '35:00') }}" placeholder="38:20" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs">
+                    <label class="admin-label">Durée (MM:SS)</label>
+                    <input type="text" name="duration_label" value="{{ old('duration_label', $podcast->duration_label ?? '35:00') }}" placeholder="38:20" class="admin-input">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Slug URL</label>
-                    <input type="text" name="slug" value="{{ old('slug', $podcast->slug) }}" placeholder="Auto" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs font-mono">
+                    <label class="admin-label">Slug URL</label>
+                    <input type="text" name="slug" value="{{ old('slug', $podcast->slug) }}" placeholder="Auto" class="admin-input font-mono text-xs">
                 </div>
             </div>
 
-            <div class="pt-2 border-t border-slate-100">
+            <div class="pt-2 border-t border-slate-100 flex justify-end">
                 <x-ui.checkbox
                     name="is_featured"
                     value="1"
                     :checked="(bool) old('is_featured', $podcast->is_featured ?? false)"
-                    label="Épisode en Vedette (Hero Studio)"
-                    description="Afficher en grand lecteur sur la page Podcasts"
+                    label="Épisode en Vedette"
                 />
             </div>
 
-            <button type="submit" class="w-full py-3 px-4 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
-                <i data-lucide="save" class="w-4 h-4"></i>
-                <span>{{ $podcast->exists ? 'Mettre à jour l\'épisode' : 'Publier l\'épisode' }}</span>
-            </button>
+            <div class="flex justify-end">
+                <button type="submit" class="w-auto btn btn-md btn-primary justify-center">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span>{{ $podcast->exists ? 'Mettre à jour l\'épisode' : 'Publier l\'épisode' }}</span>
+                </button>
+            </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs space-y-3">
-            <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+        <div class="admin-card p-5 sm:p-6 space-y-3">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2 border-b border-slate-100 pb-2.5">
                 <i data-lucide="image" class="w-4 h-4 text-red-700"></i>
-                <span>Vignette / Miniature personnalisée</span>
+                <span>Miniature personnalisée</span>
             </h3>
-            <p class="text-[11px] text-slate-500">Optionnel pour YouTube (la miniature officielle YouTube est récupérée automatiquement si vide).</p>
+            <p class="admin-help-text">Optionnel pour YouTube (miniature officielle récupérée si vide).</p>
 
             <x-media-picker
                 name="thumbnail_url"

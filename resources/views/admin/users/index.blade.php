@@ -7,7 +7,7 @@
 @section('top_actions')
     <button type="button"
             onclick="window.dispatchEvent(new CustomEvent('open-user-modal', { detail: { mode: 'create' } }))"
-            class="px-4 py-2 bg-red-700 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition inline-flex items-center gap-2 shadow-xs cursor-pointer">
+            class="btn btn-sm btn-primary">
         <i data-lucide="user-plus" class="w-4 h-4"></i>
         <span>Ajouter un utilisateur</span>
     </button>
@@ -93,80 +93,80 @@
         }
     }"
     @open-user-modal.window="if ($event.detail.mode === 'create') openCreate(); else openEdit($event.detail.user);"
-    class="space-y-8"
+    class="space-y-6"
 >
 
     <!-- KPIs Utilisateurs -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs flex items-center justify-between">
+        <div class="admin-card p-4 flex items-center justify-between">
             <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Utilisateurs</span>
-                <div class="text-2xl font-black text-slate-900 mt-1">{{ $stats['total'] }}</div>
-                <span class="text-[11px] text-slate-500">Tous les comptes enregistrés</span>
+                <span class="text-xs font-medium text-slate-500">Total Utilisateurs</span>
+                <div class="text-xl font-bold text-slate-900 mt-0.5">{{ $stats['total'] }}</div>
+                <span class="text-[11px] text-slate-400">Comptes enregistrés</span>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center">
                 <i data-lucide="users" class="w-5 h-5"></i>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs flex items-center justify-between">
+        <div class="admin-card p-4 flex items-center justify-between">
             <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Comptes Actifs</span>
-                <div class="text-2xl font-black text-emerald-600 mt-1">{{ $stats['active'] }}</div>
-                <span class="text-[11px] text-emerald-600 font-semibold">Accès opérationnel</span>
+                <span class="text-xs font-medium text-slate-500">Comptes Actifs</span>
+                <div class="text-xl font-bold text-emerald-600 mt-0.5">{{ $stats['active'] }}</div>
+                <span class="text-[11px] text-emerald-600 font-medium">Accès opérationnel</span>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <i data-lucide="user-check" class="w-5 h-5"></i>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs flex items-center justify-between">
+        <div class="admin-card p-4 flex items-center justify-between">
             <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Suspendus / Attente</span>
-                <div class="text-2xl font-black text-amber-600 mt-1">{{ $stats['suspended'] + $stats['pending'] }}</div>
-                <span class="text-[11px] text-amber-600 font-semibold">{{ $stats['suspended'] }} suspendu(s)</span>
+                <span class="text-xs font-medium text-slate-500">Suspendus / Attente</span>
+                <div class="text-xl font-bold text-amber-600 mt-0.5">{{ $stats['suspended'] + $stats['pending'] }}</div>
+                <span class="text-[11px] text-amber-600 font-medium">{{ $stats['suspended'] }} suspendu(s)</span>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
                 <i data-lucide="user-x" class="w-5 h-5"></i>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs flex items-center justify-between">
+        <div class="admin-card p-4 flex items-center justify-between">
             <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Administrateurs</span>
-                <div class="text-2xl font-black text-red-700 mt-1">{{ $stats['admins'] }}</div>
-                <span class="text-[11px] text-slate-500">Droits d'administration</span>
+                <span class="text-xs font-medium text-slate-500">Administrateurs</span>
+                <div class="text-xl font-bold text-red-700 mt-0.5">{{ $stats['admins'] }}</div>
+                <span class="text-[11px] text-slate-400">Droits système</span>
             </div>
-            <div class="w-11 h-11 rounded-xl bg-red-50 text-red-700 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-lg bg-red-50 text-red-700 flex items-center justify-center">
                 <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
         </div>
     </div>
 
     <!-- Barre de Recherche, Filtres & Bouton Créer -->
-    <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs">
-        <form method="GET" action="{{ route('admin.users.index') }}" class="flex flex-wrap items-center gap-2.5 flex-1">
-            <div class="relative w-64">
-                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+    <div class="admin-card p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <form method="GET" action="{{ route('admin.users.index') }}" class="flex flex-wrap items-center gap-2 flex-1">
+            <div class="relative w-60">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
                 <input type="text" name="q" value="{{ $search ?? '' }}" placeholder="Nom, email, @identifiant..."
-                       class="w-full pl-9 pr-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-slate-900">
-            </div>
-
-            <div class="w-48">
-                <x-ui.select name="role" :options="$roleFilterOptions" :value="$roleFilter ?? ''" :searchable="false" />
+                       class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-slate-800">
             </div>
 
             <div class="w-44">
+                <x-ui.select name="role" :options="$roleFilterOptions" :value="$roleFilter ?? ''" :searchable="false" />
+            </div>
+
+            <div class="w-40">
                 <x-ui.select name="status" :options="$statusFilterOptions" :value="$statusFilter ?? ''" :searchable="false" />
             </div>
 
-            <button type="submit" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition cursor-pointer inline-flex items-center gap-1.5">
+            <button type="submit" class="btn btn-sm btn-dark">
                 <i data-lucide="filter" class="w-3.5 h-3.5"></i>
                 <span>Filtrer</span>
             </button>
 
             @if($search || $roleFilter || $statusFilter)
-                <a href="{{ route('admin.users.index') }}" class="px-3 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition">
+                <a href="{{ route('admin.users.index') }}" class="text-xs text-slate-500 hover:text-slate-800 px-2 py-1">
                     Réinitialiser
                 </a>
             @endif
@@ -174,16 +174,16 @@
 
         <button type="button"
                 @click="openCreate()"
-                class="px-4 py-2.5 bg-red-700 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition inline-flex items-center gap-2 shadow-xs cursor-pointer shrink-0">
-            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                class="btn btn-sm btn-primary self-start lg:self-auto shrink-0">
+            <i data-lucide="plus" class="w-4 h-4"></i>
             <span>Nouvel Utilisateur</span>
         </button>
     </div>
 
     <!-- Tableau de Gestion des Utilisateurs -->
-    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+    <div class="admin-table-container">
+        <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <i data-lucide="users" class="w-4 h-4 text-red-700"></i>
                 <span>Comptes Utilisateurs ({{ $users->total() }})</span>
             </h2>
@@ -191,36 +191,36 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm">
+            <table class="admin-table">
                 <thead>
-                    <tr class="border-b border-slate-200 bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500">
-                        <th class="py-3.5 px-5">Utilisateur</th>
-                        <th class="py-3.5 px-4">Rôle</th>
-                        <th class="py-3.5 px-4">Statut</th>
-                        <th class="py-3.5 px-4">Dernière Connexion</th>
-                        <th class="py-3.5 px-4">Créé le</th>
-                        <th class="py-3.5 px-5 text-right">Actions</th>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Rôle</th>
+                        <th>Statut</th>
+                        <th>Dernière Connexion</th>
+                        <th>Créé le</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($users as $user)
                         <tr class="hover:bg-slate-50/70 transition-colors">
-                            <td class="py-4 px-5">
+                            <td>
                                 <div class="flex items-center gap-3">
                                     @if($user->avatar_url)
                                         <img src="{{ $user->avatar_url }}" alt="{{ $user->display_name }}"
-                                             class="w-10 h-10 rounded-xl object-cover border border-slate-200 shrink-0">
+                                             class="w-9 h-9 rounded-lg object-cover border border-slate-200 shrink-0">
                                     @else
-                                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-extrabold text-xs flex items-center justify-center shrink-0">
+                                        <div class="w-9 h-9 rounded-lg bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0">
                                             {{ $user->initials() }}
                                         </div>
                                     @endif
 
                                     <div class="min-w-0">
-                                        <div class="font-bold text-slate-900 text-xs flex items-center gap-1.5 truncate">
+                                        <div class="font-semibold text-slate-900 text-xs flex items-center gap-1.5 truncate">
                                             <span>{{ $user->display_name }}</span>
                                             @if($user->id === auth()->id())
-                                                <span class="px-1.5 py-0.2 text-[9px] font-extrabold uppercase bg-red-100 text-red-700 rounded-sm">Vous</span>
+                                                <span class="admin-badge badge-primary text-[9px] py-0 px-1.5">Vous</span>
                                             @endif
                                         </div>
                                         <div class="text-[11px] text-slate-500 truncate">{{ $user->email }}</div>
@@ -229,49 +229,49 @@
                                 </div>
                             </td>
 
-                            <td class="py-4 px-4 text-xs">
+                            <td>
                                 @php
-                                    $roleBadgeColor = match($user->role?->slug) {
-                                        'admin' => 'bg-red-100 text-red-800 border-red-200',
-                                        'editor' => 'bg-blue-100 text-blue-800 border-blue-200',
-                                        'author' => 'bg-amber-100 text-amber-800 border-amber-200',
-                                        default => 'bg-slate-100 text-slate-700 border-slate-200',
+                                    $roleBadge = match($user->role?->slug) {
+                                        'admin' => 'badge-danger',
+                                        'editor' => 'badge-info',
+                                        'author' => 'badge-warning',
+                                        default => 'badge-neutral',
                                     };
                                 @endphp
-                                <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-md border {{ $roleBadgeColor }}">
+                                <span class="admin-badge {{ $roleBadge }}">
                                     {{ $user->role?->name ?? 'Membre' }}
                                 </span>
                             </td>
 
-                            <td class="py-4 px-4">
+                            <td>
                                 @php
-                                    $statusStyle = match($user->status->value) {
-                                        'active' => 'bg-emerald-100 text-emerald-800',
-                                        'suspended' => 'bg-rose-100 text-rose-800',
-                                        'pending' => 'bg-amber-100 text-amber-800',
-                                        default => 'bg-slate-100 text-slate-700',
+                                    $statusBadge = match($user->status->value) {
+                                        'active' => 'badge-success',
+                                        'suspended' => 'badge-danger',
+                                        'pending' => 'badge-warning',
+                                        default => 'badge-neutral',
                                     };
                                 @endphp
-                                <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-md {{ $statusStyle }}">
+                                <span class="admin-badge {{ $statusBadge }}">
                                     {{ $user->status->label() }}
                                 </span>
                             </td>
 
-                            <td class="py-4 px-4 text-xs text-slate-500">
+                            <td class="text-xs text-slate-500">
                                 @if($user->last_login_at)
-                                    <div>{{ $user->last_login_at->format('d/m/Y') }}</div>
+                                    <div class="font-medium text-slate-700">{{ $user->last_login_at->format('d/m/Y') }}</div>
                                     <div class="text-[11px] text-slate-400">{{ $user->last_login_at->format('H:i') }}</div>
                                 @else
                                     <span class="text-slate-400 italic">Jamais connecté</span>
                                 @endif
                             </td>
 
-                            <td class="py-4 px-4 text-xs text-slate-500">
+                            <td class="text-xs text-slate-500">
                                 {{ $user->created_at->format('d/m/Y') }}
                             </td>
 
-                            <td class="py-4 px-5 text-right">
-                                <div class="inline-flex items-center justify-end gap-1.5">
+                            <td class="text-right">
+                                <div class="inline-flex items-center justify-end gap-1">
 
                                     {{-- Bouton Activer / Désactiver --}}
                                     @if($user->id !== auth()->id())
@@ -288,13 +288,13 @@
                                                             variant: 'warning',
                                                             icon: 'user-x'
                                                         })"
-                                                        class="p-2 text-amber-700 hover:bg-amber-50 rounded-lg transition cursor-pointer"
+                                                        class="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition cursor-pointer"
                                                         title="Désactiver / Suspendre">
                                                     <i data-lucide="pause-circle" class="w-4 h-4"></i>
                                                 </button>
                                             @else
                                                 <button type="submit"
-                                                        class="p-2 text-emerald-700 hover:bg-emerald-50 rounded-lg transition cursor-pointer"
+                                                        class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg transition cursor-pointer"
                                                         title="Activer le compte">
                                                     <i data-lucide="play-circle" class="w-4 h-4"></i>
                                                 </button>
@@ -302,7 +302,7 @@
                                         </form>
                                     @endif
 
-                                    {{-- Bouton Modifier (Ouvre le même Dialog composant) --}}
+                                    {{-- Bouton Modifier --}}
                                     @php
                                         $userData = [
                                             'id' => $user->id,
@@ -317,12 +317,12 @@
                                     @endphp
                                     <button type="button"
                                             @click="openEdit(@js($userData))"
-                                            class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-lg inline-flex items-center gap-1.5 transition cursor-pointer">
+                                            class="btn btn-sm btn-secondary">
                                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
                                         <span>Modifier</span>
                                     </button>
 
-                                    {{-- Bouton Supprimer (avec dialog de confirmation réutilisable) --}}
+                                    {{-- Bouton Supprimer --}}
                                     @if($user->id !== auth()->id())
                                         <form id="delete-user-form-{{ $user->id }}" action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
                                             @csrf
@@ -336,7 +336,7 @@
                                                         variant: 'danger',
                                                         icon: 'trash-2'
                                                     })"
-                                                    class="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                                                    class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                                                     title="Supprimer">
                                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                                             </button>
@@ -361,28 +361,26 @@
         {{ $users->links() }}
     </div>
 
-    <!-- ========================================================================= -->
-    <!-- DIALOG COMPOSANT UNIQUE : AJOUT & MODIFICATION D'UN UTILISATEUR           -->
-    <!-- ========================================================================= -->
+    <!-- DIALOG COMPOSANT UNIQUE : AJOUT & MODIFICATION D'UN UTILISATEUR -->
     <div x-show="modalOpen"
          x-cloak
-         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-xs"
          @keydown.escape.window="modalOpen = false">
         <div @click.outside="modalOpen = false"
-             class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-xl overflow-hidden relative">
+             class="bg-white rounded-xl border border-slate-200 shadow-xl w-full max-w-xl overflow-hidden relative">
 
-            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                <h3 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
+            <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <h3 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
                     <i data-lucide="user-check" class="w-4 h-4 text-red-700" x-show="isEditing"></i>
                     <i data-lucide="user-plus" class="w-4 h-4 text-red-700" x-show="!isEditing"></i>
                     <span x-text="modalTitle"></span>
                 </h3>
-                <button type="button" @click="modalOpen = false" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg cursor-pointer">
+                <button type="button" @click="modalOpen = false" class="p-1 text-slate-400 hover:text-slate-600 rounded cursor-pointer">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
-            <form :action="formAction" method="POST" class="p-6 space-y-4 max-h-[82vh] overflow-y-auto">
+            <form :action="formAction" method="POST" class="p-5 space-y-4 max-h-[82vh] overflow-y-auto">
                 @csrf
                 <template x-if="isEditing">
                     <input type="hidden" name="_method" value="PUT">
@@ -390,49 +388,49 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nom complet *</label>
+                        <label class="admin-label">Nom complet *</label>
                         <input type="text" name="display_name" required x-model="form.display_name" placeholder="Ex: Aïcha Diop"
-                               class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                               class="admin-input">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Adresse email *</label>
+                        <label class="admin-label">Adresse email *</label>
                         <input type="email" name="email" required x-model="form.email" placeholder="aicha.diop@ciomag.com"
-                               class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                               class="admin-input">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nom d'utilisateur (Identifiant)</label>
+                        <label class="admin-label">Nom d'utilisateur (Identifiant)</label>
                         <input type="text" name="username" x-model="form.username" placeholder="aicha-diop"
-                               class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                               class="admin-input font-mono">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">
+                        <label class="admin-label">
                             <span x-text="isEditing ? 'Nouveau mot de passe' : 'Mot de passe *'"></span>
                         </label>
                         <input type="password" name="password" :required="!isEditing" x-model="form.password"
                                :placeholder="isEditing ? 'Laisser vide pour ne pas changer' : '6 caractères minimum'"
-                               class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                               class="admin-input">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Rôle & Permissions *</label>
+                        <label class="admin-label">Rôle & Permissions *</label>
                         <x-ui.select name="role_id" :options="$roleOptions" x-model="form.role_id" :searchable="false" />
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Statut du compte *</label>
+                        <label class="admin-label">Statut du compte *</label>
                         <x-ui.select name="status" :options="$statusOptions" x-model="form.status" :searchable="false" />
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">URL Avatar (Photo)</label>
+                    <label class="admin-label">URL Avatar (Photo)</label>
                     <div class="flex gap-2">
                         <input type="text" name="avatar_url" x-model="form.avatar_url" placeholder="https://..."
-                               class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700">
+                               class="admin-input">
                         <button type="button"
                                 onclick="window.openMediaManager && window.openMediaManager((media) => {
                                     const modal = document.querySelector('[x-data]');
@@ -440,7 +438,7 @@
                                         modal._x_dataStack[0].form.avatar_url = media.url;
                                     }
                                 })"
-                                class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer"
+                                class="btn btn-sm btn-secondary shrink-0"
                                 title="Choisir un média">
                             <i data-lucide="image" class="w-4 h-4"></i>
                         </button>
@@ -448,16 +446,16 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Biographie d'auteur / Rédacteur</label>
+                    <label class="admin-label">Biographie d'auteur / Rédacteur</label>
                     <textarea name="bio" rows="2" x-model="form.bio" placeholder="Bio succincte affichée sous les articles..."
-                              class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700"></textarea>
+                              class="admin-input"></textarea>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
-                    <button type="button" @click="modalOpen = false" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer">
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                    <button type="button" @click="modalOpen = false" class="btn btn-sm btn-ghost">
                         Annuler
                     </button>
-                    <button type="submit" class="px-5 py-2.5 bg-red-700 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl inline-flex items-center gap-1.5 cursor-pointer shadow-xs">
+                    <button type="submit" class="btn btn-sm btn-primary">
                         <i data-lucide="save" class="w-4 h-4" x-show="isEditing"></i>
                         <i data-lucide="plus" class="w-4 h-4" x-show="!isEditing"></i>
                         <span x-text="isEditing ? 'Enregistrer les modifications' : 'Créer le compte utilisateur'"></span>

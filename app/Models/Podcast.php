@@ -118,6 +118,6 @@ class Podcast extends Model
             return $this->video_file_path;
         }
 
-        return asset('storage/' . ltrim($this->video_file_path, '/'));
+        return asset('storage/'.ltrim($this->video_file_path, '/'));
     }
 }

@@ -76,7 +76,7 @@ class UserController extends Controller
 
         $username = ! empty($validated['username'])
             ? Str::slug($validated['username'])
-            : Str::slug($validated['display_name']) . '-' . random_int(10, 99);
+            : Str::slug($validated['display_name']).'-'.random_int(10, 99);
 
         $user = User::create([
             'display_name' => $validated['display_name'],

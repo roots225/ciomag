@@ -72,32 +72,32 @@
 
         <!-- Colonne Principale (8 colonnes) -->
         <div class="lg:col-span-8 space-y-6">
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5 shadow-2xs">
+            <div class="admin-card p-6 space-y-5">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Titre de la publication *</label>
+                    <label class="admin-label mb-1.5">Titre de la publication *</label>
                     <input
                         type="text"
                         name="title"
                         value="{{ old('title', $post->title) }}"
                         required
                         placeholder="Titre de l'article ou de la page..."
-                        class="w-full px-4 py-2.5 text-base font-bold border border-slate-300 rounded-xl focus:outline-none focus:border-red-700"
+                        class="admin-input text-base font-semibold"
                     >
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Slug URL (auto-généré si vide)</label>
+                        <label class="admin-label mb-1.5">Slug URL (auto-généré si vide)</label>
                         <input
                             type="text"
                             name="slug"
                             value="{{ old('slug', $post->slug) }}"
                             placeholder="ex: ia-generative-dsi-2026"
-                            class="w-full px-3.5 py-2.5 text-sm font-mono border border-slate-300 rounded-xl focus:outline-none focus:border-red-700"
+                            class="admin-input font-mono text-xs"
                         >
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Format du contenu</label>
+                        <label class="admin-label mb-1.5">Format du contenu</label>
                         <x-ui.select
                             name="content_format"
                             :options="$formatOptions"
@@ -108,12 +108,12 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Extrait éditorial</label>
+                    <label class="admin-label mb-1.5">Extrait éditorial</label>
                     <textarea
                         name="excerpt"
                         rows="3"
                         placeholder="Synthèse de 2 à 3 phrases affichée en tête d'article et dans les listes..."
-                        class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700"
+                        class="admin-input"
                     >{{ old('excerpt', $post->excerpt) }}</textarea>
                 </div>
 
@@ -125,69 +125,70 @@
                             id="tinymce-content"
                             name="content"
                             rows="18"
-                            class="w-full px-4 py-3 text-sm font-mono border border-slate-300 rounded-xl"
+                            class="admin-input font-mono"
                         >{{ old('content', $post->content) }}</textarea>
                     </div>
 
                     <!-- Conteneur GrapesJS pour l'édition visuelle de Pages -->
-                    <div x-show="editorMode === 'grapesjs'" style="display: none;" class="rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+                    <div x-show="editorMode === 'grapesjs'" style="display: none;" class="rounded-xl overflow-hidden border border-slate-200 shadow-2xs">
                         <div id="gjs-page-builder" style="height: 620px; width: 100%;"></div>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center gap-1.5">
-                        <i data-lucide="git-commit-horizontal" class="w-3.5 h-3.5 text-red-700"></i>
-                        <span>Note de révision (`post_revisions.change_summary`)</span>
+                    <label class="admin-label mb-1.5 flex items-center gap-1.5">
+                        <i data-lucide="git-commit-horizontal" class="w-3.5 h-3.5 text-primary"></i>
+                        <span>Note de révision (change_summary)</span>
                     </label>
                     <input
                         type="text"
                         name="change_summary"
                         placeholder="Ex: Ajout des chiffres du baromètre cybersécurité..."
-                        class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:outline-none focus:border-red-700"
+                        class="admin-input"
                     >
                 </div>
             </div>
 
             <!-- Métadonnées SEO (JSON seo_meta) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5 shadow-2xs">
+            <div class="admin-card p-6 space-y-4">
                 <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
-                    <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                        <i data-lucide="search-check" class="w-4 h-4 text-red-700"></i>
-                        <span>SEO</span>
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                        <i data-lucide="search-check" class="w-4 h-4 text-primary"></i>
+                        <span>Optimisation Moteurs de Recherche (SEO)</span>
                     </h2>
+                    <span class="text-[11px] text-slate-400 font-medium">Métadonnées OpenGraph & Indexation</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Meta Title</label>
+                        <label class="admin-label mb-1">Meta Title</label>
                         <input
                             type="text"
                             name="seo_meta_title"
                             value="{{ old('seo_meta_title', $post->seo_meta['meta_title'] ?? '') }}"
                             placeholder="Titre optimisé pour Google..."
-                            class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl"
+                            class="admin-input"
                         >
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Canonical URL</label>
+                        <label class="admin-label mb-1">Canonical URL</label>
                         <input
                             type="url"
                             name="seo_canonical_url"
                             value="{{ old('seo_canonical_url', $post->seo_meta['canonical_url'] ?? '') }}"
                             placeholder="https://..."
-                            class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl"
+                            class="admin-input"
                         >
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Meta Description</label>
+                    <label class="admin-label mb-1">Meta Description</label>
                     <textarea
                         name="seo_meta_description"
                         rows="2"
                         placeholder="Description pour les moteurs de recherche (150-160 caractères)..."
-                        class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl"
+                        class="admin-input"
                     >{{ old('seo_meta_description', $post->seo_meta['meta_description'] ?? '') }}</textarea>
                 </div>
 
@@ -216,15 +217,15 @@
         <!-- Colonne Latérale (4 colonnes) -->
         <div class="lg:col-span-4 space-y-6">
             <!-- Publication & Statut -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-2xs">
-                <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-                    <i data-lucide="send" class="w-4 h-4 text-red-700"></i>
+            <div class="admin-card p-5 space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2.5 flex items-center gap-2">
+                    <i data-lucide="send" class="w-4 h-4 text-primary"></i>
                     <span>Publication & État</span>
                 </h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Type de contenu</label>
+                        <label class="admin-label mb-1">Type de contenu</label>
                         <x-ui.select
                             name="type"
                             :options="$typeOptions"
@@ -234,7 +235,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Statut</label>
+                        <label class="admin-label mb-1">Statut</label>
                         <x-ui.select
                             name="status"
                             :options="$statusOptions"
@@ -257,8 +258,8 @@
                         name="is_premium"
                         value="1"
                         :checked="old('is_premium', $post->is_premium)"
-                        label="Article Exclusif Abonnés (Paywall Premium)"
-                        description="Réserve la lecture intégrale aux lecteurs titulaires d'un abonnement actif."
+                        label="Article Exclusif Abonnés"
+                        description="Réserve la lecture intégrale aux abonnés payants."
                     />
 
                     <x-ui.checkbox
@@ -266,12 +267,12 @@
                         value="1"
                         :checked="old('allow_comments', $post->allow_comments)"
                         label="Autoriser les commentaires"
-                        description="Permet aux lecteurs et membres de réagir sous l'article."
+                        description="Permet aux membres de réagir sous l'article."
                     />
                 </div>
 
                 <div x-show="postType === 'page'">
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Page parente (Hiérarchie)</label>
+                    <label class="admin-label mb-1">Page parente (Hiérarchie)</label>
                     <x-ui.select
                         name="parent_id"
                         :options="$parentPageOptions"
@@ -280,27 +281,27 @@
                     />
                 </div>
 
-                <button type="submit" class="w-full py-2.5 bg-red-700 hover:bg-red-800 text-white text-sm font-bold rounded-xl transition inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                <button type="submit" class="w-full btn btn-md btn-primary justify-center">
                     <i data-lucide="save" class="w-4 h-4"></i>
                     <span>{{ $post->exists ? 'Enregistrer les modifications' : 'Publier / Enregistrer' }}</span>
                 </button>
             </div>
 
             <!-- Diffusion Réseaux Sociaux (Facebook, LinkedIn, Twitter/X) -->
-            <div x-show="postType === 'post'" class="bg-slate-900 text-white rounded-2xl p-6 space-y-4 shadow-2xs">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-2">
-                        <i data-lucide="share-2" class="w-4 h-4"></i>
-                        <span>Diffuser sur les Réseaux Sociaux</span>
+            <div x-show="postType === 'post'" class="admin-card p-5 space-y-3.5">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                        <i data-lucide="share-2" class="w-4 h-4 text-primary"></i>
+                        <span>Diffusion Réseaux Sociaux</span>
                     </h2>
-                    <a href="{{ route('admin.social.index') }}" class="text-[11px] text-slate-400 hover:text-white underline">Paramètres API</a>
+                    <a href="{{ route('admin.social.index') }}" class="text-[11px] font-medium text-slate-500 hover:text-primary transition">Paramètres API</a>
                 </div>
 
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    Cochez les plateformes sur lesquelles publier automatiquement cet article lors de l'enregistrement :
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Cochez les plateformes sur lesquelles diffuser automatiquement cet article lors de l'enregistrement :
                 </p>
 
-                <div class="space-y-2.5 bg-white text-slate-900 p-3.5 rounded-xl">
+                <div class="space-y-2.5 p-3 rounded-lg bg-slate-50 border border-slate-200">
                     <x-ui.checkbox
                         name="social_platforms[]"
                         value="linkedin"
@@ -322,22 +323,22 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Message personnalisé (optionnel)</label>
+                    <label class="admin-label mb-1">Message personnalisé (optionnel)</label>
                     <textarea
                         name="social_custom_message"
                         rows="2"
                         placeholder="Laissez vide pour utiliser le modèle automatique avec titre, extrait et hashtags..."
-                        class="w-full px-3 py-2 text-xs bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                        class="admin-input"
                     ></textarea>
                 </div>
 
                 @if($post->exists && $post->relationLoaded('socialShares') && $post->socialShares->isNotEmpty())
-                    <div class="pt-2 border-t border-slate-800 space-y-1.5">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Dernières diffusions :</span>
+                    <div class="pt-2 border-t border-slate-100 space-y-1.5">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Dernières diffusions :</span>
                         @foreach($post->socialShares->take(3) as $share)
-                            <div class="flex items-center justify-between text-[11px] text-slate-300">
-                                <span class="font-semibold">{{ $share->platformLabel() }}</span>
-                                <span class="text-emerald-400">{{ $share->shared_at?->format('d/m H:i') }} ({{ $share->status }})</span>
+                            <div class="flex items-center justify-between text-[11px] text-slate-600">
+                                <span class="font-medium">{{ $share->platformLabel() }}</span>
+                                <span class="text-emerald-700 font-semibold">{{ $share->shared_at?->format('d/m H:i') }} ({{ $share->status }})</span>
                             </div>
                         @endforeach
                     </div>
@@ -345,9 +346,9 @@
             </div>
 
             <!-- Image à la Une (Composant Universel Media Picker avec Recadrage) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-3 shadow-2xs">
-                <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-                    <i data-lucide="image" class="w-4 h-4 text-red-700"></i>
+            <div class="admin-card p-5 space-y-3">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2.5 flex items-center gap-2">
+                    <i data-lucide="image" class="w-4 h-4 text-primary"></i>
                     <span>Média de Couverture</span>
                 </h2>
 
@@ -361,14 +362,14 @@
             </div>
 
             <!-- Catégories (avec is_primary) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-2xs">
-                <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-                    <i data-lucide="folder-tree" class="w-4 h-4 text-red-700"></i>
-                    <span>Rubriques & Catégorie Principale</span>
+            <div class="admin-card p-5 space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2.5 flex items-center gap-2">
+                    <i data-lucide="folder-tree" class="w-4 h-4 text-primary"></i>
+                    <span>Rubriques & Catégorie</span>
                 </h2>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">Catégorie Principale</label>
+                    <label class="admin-label mb-1.5">Catégorie Principale</label>
                     <x-ui.select
                         name="primary_category_id"
                         :options="$categorySelectOptions"
@@ -393,9 +394,9 @@
             </div>
 
             <!-- Tags -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-3 shadow-2xs">
-                <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-                    <i data-lucide="tags" class="w-4 h-4 text-red-700"></i>
+            <div class="admin-card p-5 space-y-3">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2.5 flex items-center gap-2">
+                    <i data-lucide="tags" class="w-4 h-4 text-primary"></i>
                     <span>Mots-clés (Tags)</span>
                 </h2>
                 <div class="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1">
@@ -415,26 +416,26 @@
 
 <!-- Historique des Révisions (post_revisions) -->
 @if($post->exists && $post->revisions->isNotEmpty())
-    <div class="mt-8 bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
-        <h2 class="text-sm font-black uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-2">
-            <i data-lucide="history" class="w-4 h-4 text-red-700"></i>
+    <div class="mt-8 admin-card p-6">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
+            <i data-lucide="history" class="w-4 h-4 text-primary"></i>
             <span>Historique des Révisions ({{ $post->revisions->count() }})</span>
         </h2>
         <div class="divide-y divide-slate-100 text-xs">
             @foreach($post->revisions as $rev)
                 <div class="py-3 flex items-center justify-between gap-4">
                     <div class="flex items-center gap-2 flex-wrap">
-                        <span class="font-bold text-slate-900">{{ $rev->created_at->format('d/m/Y à H:i') }}</span>
+                        <span class="font-semibold text-slate-900">{{ $rev->created_at->format('d/m/Y à H:i') }}</span>
                         <span class="text-slate-500">par {{ $rev->editor?->display_name ?? 'Système' }}</span>
                         @if($rev->change_summary)
-                            <span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-xs font-medium">{{ $rev->change_summary }}</span>
+                            <span class="admin-badge badge-neutral">{{ $rev->change_summary }}</span>
                         @endif
                     </div>
                     <form action="{{ route('admin.posts.revisions.restore', [$post, $rev]) }}" method="POST">
                         @csrf
-                        <button type="submit" class="px-3 py-1.5 bg-slate-900 hover:bg-red-700 text-white font-semibold rounded-lg transition inline-flex items-center gap-1.5 cursor-pointer">
+                        <button type="submit" class="btn btn-sm btn-secondary">
                             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                            <span>Restaurer cette version</span>
+                            <span>Restaurer</span>
                         </button>
                     </form>
                 </div>
